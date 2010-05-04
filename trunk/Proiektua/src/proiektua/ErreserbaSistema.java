@@ -1,3 +1,5 @@
+package proiektua;
+
 
 import java.util.Observable;
 import java.util.Iterator;
