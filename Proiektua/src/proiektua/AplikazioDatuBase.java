@@ -21,7 +21,7 @@ public class AplikazioDatuBase
         try
             {
             Class.forName("com.mysql.jdbc.Driver");
-            String connectionUrl = "jdbc:mysql://localhost/mysql?" +
+            String connectionUrl = "jdbc:mysql://localhost/software?" +
                                    "user=root&password=123456";
             Connection konexioa = DriverManager.getConnection(connectionUrl);
         }
