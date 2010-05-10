@@ -20,9 +20,10 @@ public class AplikazioDatuBase
     {
         try
             {
-            String url = "jdbc:odbc:bidaiak";
-            Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
-            konexioa = DriverManager.getConnection(url, "", "");
+            Class.forName("com.mysql.jdbc.Driver");
+            String connectionUrl = "jdbc:mysql://localhost/mysql?" +
+                                   "user=root&password=123456";
+            Connection konexioa = DriverManager.getConnection(connectionUrl);
         }
         catch (SQLException anException)
             {
@@ -125,7 +126,7 @@ public class AplikazioDatuBase
             {
             // Insert sententzia sortu
             insertSententzia =
-     konexioa.prepareStatement("INSERT INTO Erreserba VALUES (?, ?, ?, ?)");
+            konexioa.prepareStatement("INSERT INTO Erreserba VALUES (?, ?, ?, ?)");
             // Insert sententzia hasieratu
             insertSententzia.setInt(1, erreserbarenZenbakia);
             insertSententzia.setTimestamp(2, new java.sql.Timestamp(data.getTime()));
