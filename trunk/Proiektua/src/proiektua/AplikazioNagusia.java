@@ -1,13 +1,17 @@
 package proiektua;
 
 import java.rmi.Naming; //BESTE ADIBIDEAN EZ ZEN BEHARREZKOA
+import java.rmi.RemoteException;
+import java.util.ListIterator;
 import java.util.Observable;
+import java.util.Vector;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Dimension;
 import javax.swing.JLabel;
 import java.awt.Rectangle;
+import java.awt.event.ItemEvent;
 
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
@@ -30,7 +34,7 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 	private JLabel labHelbidea = null;
 	private JLabel labTelefonoa = null;
 	private JComboBox cmbPertsonaKop = null;
-	private JComboBox cmbAgenteak = null;
+	private static JComboBox cmbAgenteak = null;
 	private JComboBox cmbEzaugarriak = null;
 	private JComboBox cmbIrteeraData = null;
 	private JTextField txtBaieztapenZenb = null;
@@ -155,6 +159,12 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 		if (cmbAgenteak == null) {
 			cmbAgenteak = new JComboBox();
 			cmbAgenteak.setBounds(new Rectangle(169, 18, 154, 25));
+			cmbAgenteak.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					//Irteera ezaugarriak eta irteera datak eguneratu.
+
+				}
+			});
 		}
 		return cmbAgenteak;
 	}
@@ -375,9 +385,22 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 				AplikazioNagusia thisClass = new AplikazioNagusia();
 				thisClass.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				thisClass.setVisible(true);
+				//Agenteen combo box-a kargatu.
+				agenteakKargatu();//Agenteen combo-box-a kargatu.
 			}
-		});
-		System.out.println("KAIXO!");
+		});	}
+
+	private static void agenteakKargatu(){
+		Vector<Agentea> agenteZer=new Vector();
+		try {
+			agenteZer = nlInt.getAgenteak();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		for(int i=0; (agenteZer.size() > i);i++){
+			cmbAgenteak.addItem(agenteZer.get(i).getIzena());;
+		}
+
 	}
 }
 
