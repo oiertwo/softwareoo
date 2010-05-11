@@ -294,7 +294,7 @@ public class AplikazioDatuBase
     	ResultSet rs=null;
 		try {
 			//ERROREA:
-			st = konexioa.prepareCall("SELECT AgenteId,AgenteIzena FROM Agenteak");
+			st = konexioa.prepareCall("SELECT AgenteId,AgenteIzena FROM Agenteak ORDER BY AgenteId");
 			rs = st.executeQuery();
 			while(rs.next()) {
 				Agentea ag = new Agentea(rs.getString(1),rs.getString(2));
@@ -320,5 +320,27 @@ public class AplikazioDatuBase
     	catch(Exception ex){
     		ex.printStackTrace();
     	}
+    }
+
+    public Vector<Ezaugarria> getEzaugarriak(String id){
+     	Vector<Ezaugarria> ez = new Vector<Ezaugarria>();
+
+    	CallableStatement st;
+    	ResultSet rs=null;
+		try {
+			//ERROREA:
+			st = konexioa.prepareCall("SELECT IrteeraDeskribapena " +
+									  "FROM Irteerak " +
+									  "WHERE AgenteId=" + id);
+			rs = st.executeQuery();
+			while(rs.next()) {
+				Ezaugarria e = new Ezaugarria(null,rs.getString(1));
+				ez.add(e);
+			}
+		}
+    	catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	return ez;
     }
 }

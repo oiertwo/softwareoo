@@ -8,5 +8,6 @@ public interface AplikazioNagusiaKudInterfazea extends Remote{
 	//AplikazioNagusiaKud erabiltzen dituen metodo guztiak definitu behar dira:
 	public void deskonektatuDB() throws RemoteException;
 	public Vector<Agentea> getAgenteak() throws RemoteException;
-
+	public Vector<Ezaugarria> getEzaugarriak(String id //AgenteId
+			) throws RemoteException;
 }

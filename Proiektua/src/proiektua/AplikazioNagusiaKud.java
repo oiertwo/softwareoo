@@ -62,4 +62,9 @@ public class AplikazioNagusiaKud extends UnicastRemoteObject implements Aplikazi
 		return aplikazioDatuBase.getAgenteak();
 	}
 
+	public Vector<Ezaugarria> getEzaugarriak(String id) throws RemoteException {
+		return aplikazioDatuBase.getEzaugarriak(id);
+	}
+
+
 }
