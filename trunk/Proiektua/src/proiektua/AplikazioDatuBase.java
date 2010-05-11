@@ -1,7 +1,6 @@
 package proiektua;
 
 import java.sql.*;
-import java.util.HashMap;
 import java.util.*;
 
 /**
@@ -288,9 +287,23 @@ public class AplikazioDatuBase
     }
 
 
-    /*public Vector<Agentea> lortuAgenteak(){
+    public Vector<Agentea> getAgenteak(){
+    	Vector<Agentea> agenteZer = new Vector();
 
-    }*/
+    	CallableStatement st = null;
+    	ResultSet rs=null;
+		try {
+			rs = st.executeQuery("SELECT AgenteId,AgenteIzena FROM Agenteak");
+			while(rs.next()) {
+				Agentea ag = new Agentea(rs.getString(1),rs.getString(2));
+				agenteZer.add(ag);
+			}
+		}
+    	catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	return agenteZer;
+    }
 
     /**
      * Datu basetik deskonektatzen duen metodoa

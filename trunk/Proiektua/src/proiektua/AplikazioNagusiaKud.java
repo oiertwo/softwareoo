@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.*;
 import java.util.Observable;
+import java.util.Vector;
 
 //import erreserbaEgin.Aparkalekua; (Beste pakete bateko klasea)
 
@@ -57,9 +58,8 @@ public class AplikazioNagusiaKud extends UnicastRemoteObject implements Aplikazi
 
 	/*************************************************************/
 	//METODOEN INPLEMENTAZIOA:
-	/*public Vector<Agentea> lortuAgenteak()  throws RemoteException{
-		...
-		return agenteZer;
-	}*/
+	public Vector<Agentea> getAgenteak()  throws RemoteException{
+		return aplikazioDatuBase.getAgenteak();
+	}
 
 }
