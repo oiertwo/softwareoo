@@ -290,10 +290,12 @@ public class AplikazioDatuBase
     public Vector<Agentea> getAgenteak(){
     	Vector<Agentea> agenteZer = new Vector();
 
-    	CallableStatement st = null;
+    	CallableStatement st;
     	ResultSet rs=null;
 		try {
-			rs = st.executeQuery("SELECT AgenteId,AgenteIzena FROM Agenteak");
+			//ERROREA:
+			st = konexioa.prepareCall("SELECT AgenteId,AgenteIzena FROM Agenteak");
+			rs = st.executeQuery();
 			while(rs.next()) {
 				Agentea ag = new Agentea(rs.getString(1),rs.getString(2));
 				agenteZer.add(ag);

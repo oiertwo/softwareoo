@@ -15,13 +15,13 @@ public class Agentea implements Serializable{
 		this.agenteIzena = izena;
 	}
 
-	public String getAgenteId(){
+	public String getId(){
 		return this.agenteId;
 	}
-	public String getAgenteIzena(){
+	public String getIzena(){
 		return this.agenteIzena;
 	}
-	public void setAgenteIzena(String izena){
+	public void setIzena(String izena){
 		this.agenteIzena = izena;
 	}
 }
