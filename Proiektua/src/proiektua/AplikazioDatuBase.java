@@ -2,7 +2,8 @@ package proiektua;
 
 import java.sql.*;
 import java.util.HashMap;
-//kaixo
+import java.util.*;
+
 /**
  * Arkitekturaren hirugarren mailaren klase nagusia
  * Singleton diseinu-patroia erabiltzen da instantzia bakarra izateko.
@@ -11,7 +12,7 @@ import java.util.HashMap;
 public class AplikazioDatuBase
 {
     private static AplikazioDatuBase instantzia;
-    private Connection konexioa;
+    public static java.sql.Connection konexioa;
 
     /**
     * Datu basea hasieratzen
@@ -21,9 +22,8 @@ public class AplikazioDatuBase
         try
             {
             Class.forName("com.mysql.jdbc.Driver");
-            String connectionUrl = "jdbc:mysql://localhost/software?" +
-                                   "user=root&password=123456";
-            Connection konexioa = DriverManager.getConnection(connectionUrl);
+    	    konexioa = DriverManager.getConnection("jdbc:mysql://localhost/software","root","123456");
+    	    System.out.println("Datu-basera ondo konektatu da.");
         }
         catch (SQLException anException)
             {
@@ -286,5 +286,24 @@ public class AplikazioDatuBase
     {
         return null;
     }
-}
 
+
+    /*public Vector<Agentea> lortuAgenteak(){
+
+    }*/
+
+    /**
+     * Datu basetik deskonektatzen duen metodoa
+     *
+     * @return void
+     */
+    public void deskonektatuDB(){
+    	try{
+    		konexioa.close();
+    		System.out.println("Datu-basetik ondo deskonektatu da.");
+    	}
+    	catch(Exception ex){
+    		ex.printStackTrace();
+    	}
+    }
+}
