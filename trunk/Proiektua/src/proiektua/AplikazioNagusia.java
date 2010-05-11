@@ -23,6 +23,7 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 	//INTERFAZEA
 	public static AplikazioNagusiaKudInterfazea nlInt;  //  @jve:decl-index=0:visual-constraint="38,6"
 
+	private static Vector<Agentea> agenteZer=new Vector();  //  @jve:decl-index=0:
 	private JFrame frameErreserba = null;
 	private JPanel edukiontziErreserba = null;
 	private JLabel labAgentea = null;
@@ -161,6 +162,17 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 			cmbAgenteak.setBounds(new Rectangle(169, 18, 154, 25));
 			cmbAgenteak.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
+					Vector<Ezaugarria> ez;
+					cmbEzaugarriak.removeAllItems();
+					try {
+						ez=nlInt.getEzaugarriak(agenteZer.get(cmbAgenteak.getSelectedIndex()).getId());
+						for(int i=0; (ez.size() > i);i++){
+							cmbEzaugarriak.addItem(ez.get(i).getEzaugarri());
+						}
+					} catch (RemoteException e1) {
+						e1.printStackTrace();
+					}
+
 					//Irteera ezaugarriak eta irteera datak eguneratu.
 
 				}
@@ -391,14 +403,14 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 		});	}
 
 	private static void agenteakKargatu(){
-		Vector<Agentea> agenteZer=new Vector();
+
 		try {
 			agenteZer = nlInt.getAgenteak();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
 		for(int i=0; (agenteZer.size() > i);i++){
-			cmbAgenteak.addItem(agenteZer.get(i).getIzena());;
+			cmbAgenteak.addItem(agenteZer.get(i).getIzena());
 		}
 
 	}
