@@ -375,9 +375,9 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 				AplikazioNagusia thisClass = new AplikazioNagusia();
 				thisClass.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				thisClass.setVisible(true);
-
 			}
 		});
+		System.out.println("KAIXO!");
 	}
 }
 
