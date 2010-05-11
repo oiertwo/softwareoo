@@ -2,12 +2,12 @@ package proiektua;
 
 import java.sql.*;
 import java.util.HashMap;
-
+//kaixo
 /**
  * Arkitekturaren hirugarren mailaren klase nagusia
  * Singleton diseinu-patroia erabiltzen da instantzia bakarra izateko.
  */
- 
+
 public class AplikazioDatuBase
 {
     private static AplikazioDatuBase instantzia;
@@ -106,8 +106,8 @@ public class AplikazioDatuBase
         }
     }
     /**
-    * Erreserba txertatzen datu basean  
-    
+    * Erreserba txertatzen datu basean
+
     * @return count int
     * @param data java.util.Date
     * @param amount double
@@ -157,7 +157,7 @@ public class AplikazioDatuBase
         }
     }
     /**
-    * Erreserbaren ezugarriak txertatzen datu-basean  
+    * Erreserbaren ezugarriak txertatzen datu-basean
     * @return count int
     * @param data java.util.Date
     * @param amount double
@@ -209,7 +209,7 @@ public class AplikazioDatuBase
         }
     }
     /**
-    * Turistaren datuak txertatzen datu-basean  
+    * Turistaren datuak txertatzen datu-basean
     * @return count int
     * @param data java.util.Date
     * @param amount double
@@ -271,7 +271,7 @@ public class AplikazioDatuBase
 
 
     /**
-    * Datuak eskuratzen datu-basetik 
+    * Datuak eskuratzen datu-basetik
     */
 
     public HashMap irakurriErreserbarenAgentea()
@@ -281,7 +281,7 @@ public class AplikazioDatuBase
 
 
 
-    
+
     public HashMap irakurriIrteerak()
     {
         return null;
