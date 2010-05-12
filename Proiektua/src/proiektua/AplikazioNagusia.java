@@ -23,7 +23,9 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 	//INTERFAZEA
 	public static AplikazioNagusiaKudInterfazea nlInt;  //  @jve:decl-index=0:visual-constraint="38,6"
 
-	private static Vector<Agentea> agenteZer=new Vector();  //  @jve:decl-index=0:
+	private static Vector<Agentea> agenteZer=new Vector();//  @jve:decl-index=0:
+	private static Vector<Ezaugarria> ez;
+	private static Vector<Data> dz;  //  @jve:decl-index=0:
 	private JFrame frameErreserba = null;
 	private JPanel edukiontziErreserba = null;
 	private JLabel labAgentea = null;
@@ -162,7 +164,7 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 			cmbAgenteak.setBounds(new Rectangle(169, 18, 154, 25));
 			cmbAgenteak.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					Vector<Ezaugarria> ez;
+
 					cmbEzaugarriak.removeAllItems();
 					try {
 						ez=nlInt.getEzaugarriak(agenteZer.get(cmbAgenteak.getSelectedIndex()).getId());
@@ -174,7 +176,7 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 					}
 
 					//Irteera ezaugarriak eta irteera datak eguneratu.
-
+					aldatuDatak();
 				}
 			});
 		}
@@ -190,6 +192,17 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 		if (cmbEzaugarriak == null) {
 			cmbEzaugarriak = new JComboBox();
 			cmbEzaugarriak.setBounds(new Rectangle(169, 63, 155, 25));
+			cmbEzaugarriak.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+
+
+
+						aldatuDatak();
+
+
+				}
+			});
+
 		}
 		return cmbEzaugarriak;
 	}
@@ -413,6 +426,17 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 			cmbAgenteak.addItem(agenteZer.get(i).getIzena());
 		}
 
+	}
+	private void aldatuDatak(){
+		cmbIrteeraData.removeAllItems();
+		try {
+			dz=nlInt.getDatak(agenteZer.get(cmbAgenteak.getSelectedIndex()).getId(),ez.get(cmbEzaugarriak.getSelectedIndex()).getId());
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		for(int i=0; (dz.size() > i);i++){
+			cmbIrteeraData.addItem(dz.get(i).getData());
+		}
 	}
 }
 

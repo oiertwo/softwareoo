@@ -10,4 +10,6 @@ public interface AplikazioNagusiaKudInterfazea extends Remote{
 	public Vector<Agentea> getAgenteak() throws RemoteException;
 	public Vector<Ezaugarria> getEzaugarriak(String id //AgenteId
 			) throws RemoteException;
+	public Vector<Data> getDatak(String aId,String iId
+	) throws RemoteException;
 }
