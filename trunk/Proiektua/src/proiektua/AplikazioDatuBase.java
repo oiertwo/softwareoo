@@ -329,12 +329,12 @@ public class AplikazioDatuBase
     	ResultSet rs=null;
 		try {
 			//ERROREA:
-			st = konexioa.prepareCall("SELECT IrteeraDeskribapena " +
+			st = konexioa.prepareCall("SELECT IrteeraDeskribapena, IrteeraId " +
 									  "FROM Irteerak " +
 									  "WHERE AgenteId=" + id);
 			rs = st.executeQuery();
 			while(rs.next()) {
-				Ezaugarria e = new Ezaugarria(null,rs.getString(1));
+				Ezaugarria e = new Ezaugarria(rs.getString(2),rs.getString(1));
 				ez.add(e);
 			}
 		}
@@ -342,5 +342,31 @@ public class AplikazioDatuBase
 			e.printStackTrace();
 		}
     	return ez;
+    }
+    //DATAK EDITATZEN
+    public Vector<Data> getDatak(String agenteId,String irteeraId){
+     	Vector<Data> dz = new Vector<Data>();
+
+    	CallableStatement st;
+    	ResultSet rs=null;
+		try {
+
+			st = konexioa.prepareCall("SELECT Data, PlazaKop " +
+									  "FROM datak " +
+									  "WHERE AgenteId=" + agenteId+ " AND IrteeraId= " + irteeraId );
+
+
+
+
+			rs = st.executeQuery();
+			while(rs.next()) {
+				Data d = new Data(rs.getDate(1).toString(),null,null,rs.getInt(2));
+				dz.add(d);
+			}
+		}	//ERROREA:
+    	catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	return dz;
     }
 }
