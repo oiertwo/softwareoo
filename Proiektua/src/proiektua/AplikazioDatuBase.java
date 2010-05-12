@@ -294,7 +294,7 @@ public class AplikazioDatuBase
     	ResultSet rs=null;
 		try {
 			//ERROREA:
-			st = konexioa.prepareCall("SELECT AgenteId,AgenteIzena FROM Agenteak ORDER BY AgenteId");
+			st = konexioa.prepareCall("SELECT AgenteId, AgenteIzena FROM Agenteak ORDER BY AgenteId");
 			rs = st.executeQuery();
 			while(rs.next()) {
 				Agentea ag = new Agentea(rs.getString(1),rs.getString(2));
@@ -331,7 +331,7 @@ public class AplikazioDatuBase
 			//ERROREA:
 			st = konexioa.prepareCall("SELECT IrteeraDeskribapena, IrteeraId " +
 									  "FROM Irteerak " +
-									  "WHERE AgenteId=" + id);
+									  "WHERE AgenteId=" + id +" ORDER BY IrteeraId");
 			rs = st.executeQuery();
 			while(rs.next()) {
 				Ezaugarria e = new Ezaugarria(rs.getString(2),rs.getString(1));
@@ -350,17 +350,13 @@ public class AplikazioDatuBase
     	CallableStatement st;
     	ResultSet rs=null;
 		try {
-
 			st = konexioa.prepareCall("SELECT Data, PlazaKop " +
 									  "FROM datak " +
-									  "WHERE AgenteId=" + agenteId+ " AND IrteeraId= " + irteeraId );
-
-
-
-
+									  "WHERE AgenteId=" + agenteId+ " AND IrteeraId= " + irteeraId
+									  + " ORDER BY Data");
 			rs = st.executeQuery();
 			while(rs.next()) {
-				Data d = new Data(rs.getDate(1).toString(),null,null,rs.getInt(2));
+				Data d = new Data(rs.getDate(1).toString(),agenteId,irteeraId,rs.getInt(2));
 				dz.add(d);
 			}
 		}	//ERROREA:
