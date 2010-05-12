@@ -23,9 +23,10 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 	//INTERFAZEA
 	public static AplikazioNagusiaKudInterfazea nlInt;  //  @jve:decl-index=0:visual-constraint="38,6"
 
-	private static Vector<Agentea> agenteZer=new Vector();//  @jve:decl-index=0:
-	private static Vector<Ezaugarria> ez;
-	private static Vector<Data> dz;  //  @jve:decl-index=0:
+	private static Vector<Agentea> agenteZer=new Vector<Agentea>();//  @jve:decl-index=0:
+	private static Vector<Ezaugarria> ez=new Vector<Ezaugarria>();  //  @jve:decl-index=0:
+	private static Vector<Data> dz=new Vector<Data>();//  @jve:decl-index=0:
+
 	private JFrame frameErreserba = null;
 	private JPanel edukiontziErreserba = null;
 	private JLabel labAgentea = null;
@@ -162,23 +163,22 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 		if (cmbAgenteak == null) {
 			cmbAgenteak = new JComboBox();
 			cmbAgenteak.setBounds(new Rectangle(169, 18, 154, 25));
-			cmbAgenteak.addActionListener(new java.awt.event.ActionListener() {
-				public void actionPerformed(java.awt.event.ActionEvent e) {
-
-					cmbEzaugarriak.removeAllItems();
-					try {
-						ez=nlInt.getEzaugarriak(agenteZer.get(cmbAgenteak.getSelectedIndex()).getId());
-						for(int i=0; (ez.size() > i);i++){
-							cmbEzaugarriak.addItem(ez.get(i).getEzaugarri());
-						}
-					} catch (RemoteException e1) {
-						e1.printStackTrace();
-					}
-
-					//Irteera ezaugarriak eta irteera datak eguneratu.
-					aldatuDatak();
+			cmbAgenteak.addItemListener(new java.awt.event.ItemListener() {
+				public void itemStateChanged(java.awt.event.ItemEvent e) {
+					eguneratuEzaugarriak(); // TODO Auto-generated Event stub itemStateChanged()
 				}
 			});
+			/*cmbAgenteak.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					eguneratuEzaugarriak();
+					System.out.println("Ezaugarriak eguneratuta");
+					datakKargatu();
+					System.out.println("datak eguneratuta");
+					//Irteera ezaugarriak eta irteera datak eguneratu.
+
+				}
+			});*/
+
 		}
 		return cmbAgenteak;
 	}
@@ -192,17 +192,19 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 		if (cmbEzaugarriak == null) {
 			cmbEzaugarriak = new JComboBox();
 			cmbEzaugarriak.setBounds(new Rectangle(169, 63, 155, 25));
-			cmbEzaugarriak.addActionListener(new java.awt.event.ActionListener() {
+			/*cmbEzaugarriak.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-
-
-
-						aldatuDatak();
+					//datakKargatu();
 
 
 				}
-			});
+			});*/
 
+			cmbEzaugarriak.addItemListener(new java.awt.event.ItemListener() {
+				public void itemStateChanged(java.awt.event.ItemEvent e) {
+					datakKargatu(); // TODO Auto-generated Event stub itemStateChanged()
+				}
+			});
 		}
 		return cmbEzaugarriak;
 	}
@@ -416,7 +418,7 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 		});	}
 
 	private static void agenteakKargatu(){
-
+		cmbAgenteak.removeAllItems();
 		try {
 			agenteZer = nlInt.getAgenteak();
 		} catch (RemoteException e) {
@@ -427,17 +429,35 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 		}
 
 	}
-	private void aldatuDatak(){
-		cmbIrteeraData.removeAllItems();
+
+	public void eguneratuEzaugarriak(){
+		cmbEzaugarriak.removeAllItems();
 		try {
-			dz=nlInt.getDatak(agenteZer.get(cmbAgenteak.getSelectedIndex()).getId(),ez.get(cmbEzaugarriak.getSelectedIndex()).getId());
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		}
-		for(int i=0; (dz.size() > i);i++){
-			cmbIrteeraData.addItem(dz.get(i).getData());
+			ez=nlInt.getEzaugarriak(agenteZer.get(cmbAgenteak.getSelectedIndex()).getId());
+			for(int i=0; (ez.size() > i);i++){
+				cmbEzaugarriak.addItem(ez.get(i).getEzaugarri());
+			}
+		} catch (RemoteException e1) {
+			e1.printStackTrace();
 		}
 	}
+
+	public void datakKargatu(){
+		cmbIrteeraData.removeAllItems();
+		try {
+			//if (cmbAgenteak.getSelectedIndex()>0 & cmbEzaugarriak.getSelectedIndex()>0){
+				dz=nlInt.getDatak(agenteZer.get(cmbAgenteak.getSelectedIndex()).getId(),ez.get(cmbEzaugarriak.getSelectedIndex()).getId());
+				for(int i=0; (dz.size() > i);i++){
+					cmbIrteeraData.addItem(dz.get(i).getData());
+				}
+			//}else{
+			//	System.out.println("Errorea: Agente index edo ezaugarri indez-en");
+			//}
+		} catch (RemoteException e1) {
+			e1.printStackTrace();
+		}
+	}
+
 }
 
 /* Uneko frame eskutatzeko eta beste frame bat irekitzeko:
