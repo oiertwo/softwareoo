@@ -12,6 +12,8 @@ import java.util.*;
 
 public class AplikazioDatuBase
 {
+	private static AplikazioDatuBase INSTANCE = null;
+
     private static AplikazioDatuBase instantzia;
     public static java.sql.Connection konexioa;
     private int erreserbaZenb=0;
@@ -19,7 +21,8 @@ public class AplikazioDatuBase
     /**
     * Datu basea hasieratzen
     */
-    public AplikazioDatuBase()
+
+    private AplikazioDatuBase()
     {
         try
             {
@@ -40,6 +43,19 @@ public class AplikazioDatuBase
             anException.printStackTrace();
         }
     }
+
+    private synchronized static void createInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new AplikazioDatuBase();
+        }
+    }
+
+    public static AplikazioDatuBase getInstance() {
+        if (INSTANCE == null) createInstance();
+        return INSTANCE;
+    }
+
+
     /**
     * Datu base itxi
     */
