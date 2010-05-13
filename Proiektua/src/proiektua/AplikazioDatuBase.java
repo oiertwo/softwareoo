@@ -1,5 +1,6 @@
 package proiektua;
 
+import java.rmi.RemoteException;
 import java.sql.*;
 import java.util.*;
 
@@ -279,8 +280,6 @@ public class AplikazioDatuBase
     }
 
 
-
-
     public HashMap irakurriIrteerak()
     {
         return null;
@@ -323,46 +322,70 @@ public class AplikazioDatuBase
     }
 
     public Vector<Ezaugarria> getEzaugarriak(String id){
-     	Vector<Ezaugarria> ez = new Vector<Ezaugarria>();
+     	Vector<Ezaugarria> ezaugarriZer = new Vector<Ezaugarria>();
 
     	CallableStatement st;
     	ResultSet rs=null;
 		try {
-			//ERROREA:
 			st = konexioa.prepareCall("SELECT IrteeraDeskribapena, IrteeraId " +
 									  "FROM Irteerak " +
 									  "WHERE AgenteId=" + id +" ORDER BY IrteeraId");
 			rs = st.executeQuery();
 			while(rs.next()) {
 				Ezaugarria e = new Ezaugarria(rs.getString(2),rs.getString(1));
-				ez.add(e);
+				ezaugarriZer.add(e);
 			}
 		}
     	catch (SQLException e) {
 			e.printStackTrace();
 		}
-    	return ez;
+    	return ezaugarriZer;
     }
-    //DATAK EDITATZEN
+
+//Agentea irteera eta honen data zehaztuta, bidai horretarako dauden plaza libre kopurua itzultzen da.
+	public int getPlazaKop(String agenteId, String irteeraId, String data) throws RemoteException{
+    	int plazaKop=0;
+		CallableStatement st;
+    	ResultSet rs=null;
+
+		try {
+			st = konexioa.prepareCall("SELECT PlazaKop " +
+									  "FROM datak " +
+									  "WHERE AgenteId=" + agenteId +
+									  " AND IrteeraId=" + irteeraId +
+									  " AND Data='" + data + "'");
+			rs = st.executeQuery();
+			while(rs.next()) {
+				plazaKop = rs.getInt(1);
+			}
+		}
+    	catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	return plazaKop;
+	}
+
+    //Aukeratutako "agenteId" eta "irteeraId"-rako irteera datak lortu.
     public Vector<Data> getDatak(String agenteId,String irteeraId){
-     	Vector<Data> dz = new Vector<Data>();
+     	Vector<Data> dataZer = new Vector<Data>();
 
     	CallableStatement st;
     	ResultSet rs=null;
 		try {
 			st = konexioa.prepareCall("SELECT Data, PlazaKop " +
 									  "FROM datak " +
-									  "WHERE AgenteId=" + agenteId+ " AND IrteeraId= " + irteeraId
-									  + " ORDER BY Data");
+									  "WHERE AgenteId=" + agenteId +
+									  " AND IrteeraId= " + irteeraId +
+									  " ORDER BY Data");
 			rs = st.executeQuery();
 			while(rs.next()) {
 				Data d = new Data(rs.getDate(1).toString(),agenteId,irteeraId,rs.getInt(2));
-				dz.add(d);
+				dataZer.add(d);
 			}
 		}	//ERROREA:
     	catch (SQLException e) {
 			e.printStackTrace();
 		}
-    	return dz;
+    	return dataZer;
     }
 }

@@ -13,7 +13,7 @@ import java.util.Vector;
 public class AplikazioNagusiaKud extends UnicastRemoteObject implements AplikazioNagusiaKudInterfazea{
 	//Erabiliko d(ir)en klaseak adierazi (LOTURAK):
 	private static AplikazioDatuBase aplikazioDatuBase;//hau klase diagraman ez dago
-
+	String zenb; //Baieztapen zenbakia gordetzeko aldagai globala
 
 	public AplikazioNagusiaKud() throws RemoteException{
 		super();
@@ -66,9 +66,28 @@ public class AplikazioNagusiaKud extends UnicastRemoteObject implements Aplikazi
 		return aplikazioDatuBase.getEzaugarriak(id);
 	}
 
+	//"null" itzultzen du plaza kopuru librea erreserbatu nahi den plaza kopurua baino txikiagoa denean.
+	public String getErreserbaBaieztapenZenbakia(String agenteId, String irteeraId, String data, int bidaiariKop) throws RemoteException{
+		int plazaKop = aplikazioDatuBase.getPlazaKop(agenteId, irteeraId, data);
+		if((plazaKop - bidaiariKop) < 0) return null;
+		else{
+			//"1"-etik "99999"-erako ausazko zenbakia lortu:
+			Integer z = (int)Math.floor(Math.random()*(1-99999+1)+99999);
+			zenb = z.toString();
+			return (zenb);
+		}
+	}
+
+	public boolean baieztapenZenbakiaKonprobatu(String z){
+		return (z.equals(zenb));
+	}
+
+	private int getPlazaKop(String agenteId, String irteeraId, String data) throws RemoteException {
+		return aplikazioDatuBase.getPlazaKop(agenteId,irteeraId,data);
+	}
+
 	public Vector<Data> getDatak(String aId, String iId) throws RemoteException {
 		return aplikazioDatuBase.getDatak(aId, iId);
 	}
-
 
 }
