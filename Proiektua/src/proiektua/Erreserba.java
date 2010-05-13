@@ -4,12 +4,11 @@ package proiektua;
  * @author Administrador
  */
 public class Erreserba {
-    //private String erreserbaId;
-    //private String irteeraId;
-    //private String agenteId;
+    private String erreserbaId;
+    private String irteeraId;
+    private String agenteId;
     private String baieztapenZenbakia;
     private int turistaKop;
-    //private Vector turistaZerrenda;
 
     public Erreserba(String baiZenb, int turKop){
         this.baieztapenZenbakia=baiZenb;
@@ -31,5 +30,5 @@ public class Erreserba {
     public void setTuristaKop(int turistaKop) {
         this.turistaKop = turistaKop;
     }
-    
+
 }
