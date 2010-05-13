@@ -13,6 +13,6 @@ public interface AplikazioNagusiaKudInterfazea extends Remote{
 	public Vector<Data> getDatak(String aId,String iId) throws RemoteException;
 	public boolean baieztapenZenbakiaKonprobatu(String z) throws RemoteException;
 	public int sartuTurista(String izena,String helbidea,String telefonoa,String turistaZenbakia) throws RemoteException;
-    public int sartutErreserba(String baieztapenZenbakia,int turistaKop,String irteerarenKodea,String agenteKodea) throws RemoteException;
+    public int sartuErreserba(String baieztapenZenbakia,int turistaKop,String irteerarenKodea,String agenteKodea, String data) throws RemoteException;
 
 }
