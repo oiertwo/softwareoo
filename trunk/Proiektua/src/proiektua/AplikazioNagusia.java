@@ -14,12 +14,14 @@ import java.awt.Rectangle;
 import java.awt.event.ItemEvent;
 
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
+import javax.swing.JScrollBar;
 
 public class AplikazioNagusia extends JFrame { //extends Observable?
 	//INTERFAZEA
@@ -28,7 +30,7 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 	private Vector<Agentea> agenteZer = new Vector();
 	private Vector<Ezaugarria> ezaugarriZer = new Vector();  //  @jve:decl-index=0:
 	private Vector<Data> dataZer = new Vector();
-	private Vector<Turista> turistaZer = new Vector();
+	private Vector<Turista> turistaZer = new Vector();  //  @jve:decl-index=0:
 	private Integer sartutakoTuristak= new Integer(0);//  @jve:decl-index=0:
 	private String zenb;
 
@@ -341,7 +343,7 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 							taErreserba.setText(taErreserba.getText()+"\nBaieztapen zenbakia zuzena.\nErreserba egin daiteke.");
 						}
 						else{
-							taErreserba.setText(taErreserba.getText()+"Baieztapen zenbakia okerra da!\nEzin da erreserbarik egin.");
+							taErreserba.setText(taErreserba.getText()+"\nBaieztapen zenbakia okerra da!\nEzin da erreserbarik egin.");
 						}
 					} catch (RemoteException e1) {
 						e1.printStackTrace();
@@ -378,8 +380,7 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 						txtHelbidea.setText("");
 						txtTelefonoa.setText("");
 						if(sartutakoTuristak.intValue()==cmbPertsonaKop.getSelectedIndex()+1){
-							btnSartuTurista.setEnabled(false);
-							btnBidali.setEnabled(true);
+							bidaliErreserbaInterfazea();
 							sartutakoTuristak= new Integer(0);
 						}
 					}else{
@@ -408,9 +409,9 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					//Erreserba eta Turistak datu basean sartu
 					try {
-						nlInt.sartutErreserba(zenb, turistaZer.size(), ezaugarriZer.get(cmbEzaugarriak.getSelectedIndex()).getId(), agenteZer.get(cmbAgenteak.getSelectedIndex()).getId());
+						String data = cmbIrteeraData.getSelectedItem().toString();
+						nlInt.sartuErreserba(zenb, turistaZer.size(), ezaugarriZer.get(cmbEzaugarriak.getSelectedIndex()).getId(), agenteZer.get(cmbAgenteak.getSelectedIndex()).getId(),data);
 					} catch (RemoteException e2) {
-						// TODO Auto-generated catch block
 						e2.printStackTrace();
 					}
 					for(int i=0;i<turistaZer.size();i++){
@@ -424,7 +425,7 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 							System.out.println("ERROREA"+i+". turista sartzen arazoa");
 						}
 					}
-					System.out.println("Erreserbak ondo egin dira");
+					JOptionPane.showMessageDialog(null,"Erreserbak ondo egin dira.","Erreserbaren baieztapena",JOptionPane.PLAIN_MESSAGE);
 					hasieratuInterfazea();
 
 				}
@@ -444,8 +445,12 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 			btnEzeztatu.setBounds(new Rectangle(373, 318, 128, 26));
 			btnEzeztatu.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					turistaZer.removeAllElements();
-					hasieratuInterfazea();
+					Object[] aukerak = {"Bai","Ez"};
+					if(JOptionPane.showOptionDialog(null, "Erreserba ezeztatzera zoaz.\nZiur al zaude?", "Erreserbaren ezeztapena",JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,null, aukerak, aukerak[0])==0){
+						JOptionPane.showMessageDialog(null,"Erreserba ezeztatu da.","Erreserbaren ezeztapena",JOptionPane.PLAIN_MESSAGE);
+						turistaZer.removeAllElements();
+						hasieratuInterfazea();
+					}
 				}
 			});
 			btnEzeztatu.setText("Ezeztatu");
@@ -608,11 +613,27 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 		txtTelefonoa.setText("");
 
 	}
+
+	private void bidaliErreserbaInterfazea(){
+		btnSartuTurista.setEnabled(false);
+		btnBidali.setEnabled(true);
+		txtIzena.setEnabled(false);
+		txtHelbidea.setEnabled(false);
+		txtTelefonoa.setEnabled(false);
+	}
 }
 
-/* Uneko frame eskutatzeko eta beste frame bat irekitzeko:
+/*Uneko frame eskutatzeko eta beste frame bat irekitzeko:
 dispose();
 ibilgailuaHartuUtzi.IbilgailuaHartuUtzi ibHU = new ibilgailuaHartuUtzi.IbilgailuaHartuUtzi(0);
 ibHU.setVisible(true);
+
+Dialogoak:
+JOptionPane.showMessageDialog(null,"Erreserba ondo egin da.","Erreserbaren baieztapena",JOptionPane.PLAIN_MESSAGE);
+JOptionPane.showOptionDialog(null, "Ziur al zaude " + matrikula +  " erreserbatu nahi duzula?", "Konfirmazioa",JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,null, aukerak, aukerak[0])
+
+Singleton (marcadores):
+AplikazioDatuBase.getInstance();
+
 */
 

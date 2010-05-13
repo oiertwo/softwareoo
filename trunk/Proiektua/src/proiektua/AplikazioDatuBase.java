@@ -1,5 +1,6 @@
 package proiektua;
 
+
 import java.rmi.RemoteException;
 import java.sql.*;
 import java.util.*;
@@ -75,8 +76,7 @@ public class AplikazioDatuBase
         try
             {
             // Select sententzia sortu
-            selectSententzia =
-                konexioa.prepareStatement("SELECT MAX (Erreserba_Zenbakia) FROM Erreserba");
+            selectSententzia = konexioa.prepareStatement("SELECT MAX (Erreserba_Zenbakia) FROM Erreserba");
             // Select sententzia exekutatu
             resultSet = selectSententzia.executeQuery();
 
@@ -85,7 +85,7 @@ public class AplikazioDatuBase
                 {
                 erreserbarenZenbakia = resultSet.getInt(1);
             }
-            System.out.println("Select Max erreserbarenZenbakia = " + erreserbarenZenbakia);
+            System.out.println("Select MAX erreserbarenZenbakia = " + erreserbarenZenbakia);
             resultSet.close();
         }
         catch (SQLException anException)
@@ -106,61 +106,7 @@ public class AplikazioDatuBase
             return erreserbarenZenbakia;
         }
     }
-    /**
-    * Erreserba txertatzen datu basean
 
-    * @return count int
-    * @param data java.util.Date
-    * @param amount double
-    */
-    public int sartuErreserba(
-        int erreserbarenZenbakia,
-        java.util.Date data,
-        int pertsonaKopurua,
-        String agentearenKodea)
-    {
-
-
-
-    	erreserbaZenb=lortuErreserbaZenb()+1;
-        // Erazagupena
-        int count = 0;
-        PreparedStatement insertSententzia = null;
-        // Sarrera
-        try
-            {
-            // Insert sententzia sortu
-            insertSententzia =
-            konexioa.prepareStatement("INSERT INTO Erreserba VALUES (?, ?, ?, ?)");
-            // Insert sententzia hasieratu
-            insertSententzia.setInt(1, erreserbarenZenbakia);
-            insertSententzia.setTimestamp(2, new java.sql.Timestamp(data.getTime()));
-            insertSententzia.setInt(3, pertsonaKopurua);
-            insertSententzia.setString(4, agentearenKodea);
-            // Insert sententzia exekutatu
-            count = insertSententzia.executeUpdate();
-            // Insert sententzia bukatu
-            insertSententzia.close();
-            System.out.println("Insert Erreserba count : " + count);
-        }
-        catch (SQLException anException)
-            {
-            while (anException != null)
-                {
-                System.out.println(" SQL Exception : " + anException.getMessage());
-                anException = anException.getNextException();
-            }
-        }
-        catch (java.lang.Exception anException)
-            {
-            anException.printStackTrace();
-        }
-        // Irteera
-        finally
-            {
-            return count;
-        }
-    }
     private int lortuErreserbaZenb() {
     	int z = 0;
     	CallableStatement st;
@@ -170,8 +116,8 @@ public class AplikazioDatuBase
 			rs = st.executeQuery();
 			while(rs.next()) {
 				z=rs.getInt(1);
-				System.out.println(z);
 			}
+			rs.close();
 		}
     	catch (SQLException e) {
 			e.printStackTrace();
@@ -184,33 +130,40 @@ public class AplikazioDatuBase
     * @param data java.util.Date
     * @param amount double
     */
-    public int sartutErreserbaIten(
+    public int sartuErreserba(
         String baieztapenZenbakia,
         int turistaKop,
         String irteerarenKodea,
-        String agenteKodea)
+        String agenteKodea,
+        String data)
     {
         // Erazagupenak
-        int count = 0;
         PreparedStatement insertSententzia = null;
         // Sarrera
         try
             {
             // Insert sententzia sortu
-        	erreserbaZenb++;
-            insertSententzia =
-                konexioa.prepareStatement("INSERT INTO Erreserbak VALUES (?, ?, ?, ?, ?)");
-            //  Insert sententzia hasieratu
+        	erreserbaZenb=lortuErreserbaZenb()+1;
+            insertSententzia = konexioa.prepareStatement("INSERT INTO Erreserbak VALUES (?, ?, ?, ?, ?)");
+            // Insert sententzia hasieratu
             insertSententzia.setString(1, erreserbaZenb+"");
             insertSententzia.setString(4, baieztapenZenbakia);
             insertSententzia.setInt(5, turistaKop);
             insertSententzia.setString(2, irteerarenKodea);
             insertSententzia.setString(3, agenteKodea);
             //  Insert sententzia exekutatu
-            count = insertSententzia.executeUpdate();
+            insertSententzia.executeUpdate();
             //  Insert sententzia amaitu
             insertSententzia.close();
-            System.out.println("Insert Iten count : " + count);
+
+            // Aukeratutako bidairako plaza kopurua eguneratu
+            PreparedStatement updateSententzia = konexioa.prepareStatement("UPDATE datak" +
+            															" SET plazaKop=plazaKop-"+turistaKop+
+            															" WHERE AgenteId="+agenteKodea+
+            															" AND IrteeraId="+irteerarenKodea+
+            															" AND Data='" + data + "'");
+            updateSententzia.executeUpdate();
+            updateSententzia.close();
         }
         catch (SQLException anException)
             {
@@ -220,15 +173,7 @@ public class AplikazioDatuBase
                 anException = anException.getNextException();
             }
         }
-        catch (java.lang.Exception anException)
-            {
-            anException.printStackTrace();
-        }
-        // Irteera
-        finally
-            {
-            return count;
-        }
+        return 1;
     }
     /**
     * Turistaren datuak txertatzen datu-basean
@@ -249,8 +194,7 @@ public class AplikazioDatuBase
         try
             {
             // Insert sententzia sortu
-            insertSententzia =
-      konexioa.prepareStatement("INSERT INTO Turistak VALUES (?, ?, ?, ?, ?)");
+            insertSententzia = konexioa.prepareStatement("INSERT INTO Turistak VALUES (?, ?, ?, ?, ?)");
             // Hasieratu Insert statement
             insertSententzia.setString(3, izena);
             insertSententzia.setString(4, helbidea);
@@ -261,12 +205,10 @@ public class AplikazioDatuBase
             count = insertSententzia.executeUpdate();
             // Insert sententzia amaitu
             insertSententzia.close();
-            System.out.println("Insert Turista count : " + count);
         }
         catch (SQLException anException)
             {
-            while (anException != null)
-                {
+            while (anException != null){
                 System.out.println(" SQL Exception : " + anException.getMessage());
                 anException = anException.getNextException();
             }
@@ -292,36 +234,25 @@ public class AplikazioDatuBase
         return instantzia;
     }
 
-
     /**
-    * Datuak eskuratzen datu-basetik
-    */
-
-    public HashMap irakurriErreserbarenAgentea()
-    {
-        return null;
-    }
-
-
-    public HashMap irakurriIrteerak()
-    {
-        return null;
-    }
-
-
+     * Existitzen diren agenteak lortzen dituen metodoa
+     *
+     * @return Vector<Agentea>
+     */
     public Vector<Agentea> getAgenteak(){
     	Vector<Agentea> agenteZer = new Vector();
 
     	CallableStatement st;
     	ResultSet rs=null;
 		try {
-			//ERROREA:
 			st = konexioa.prepareCall("SELECT AgenteId, AgenteIzena FROM Agenteak ORDER BY AgenteId");
 			rs = st.executeQuery();
 			while(rs.next()) {
 				Agentea ag = new Agentea(rs.getString(1),rs.getString(2));
 				agenteZer.add(ag);
 			}
+			rs.close();
+			st.close();
 		}
     	catch (SQLException e) {
 			e.printStackTrace();
@@ -344,6 +275,11 @@ public class AplikazioDatuBase
     	}
     }
 
+    /**
+     * Aukeratutako agenteak eskaintzen dituen bidaien ezaugarriak lortzeko metodoa.
+     *
+     * @return Vector<Ezaugarria>
+     */
     public Vector<Ezaugarria> getEzaugarriak(String id){
      	Vector<Ezaugarria> ezaugarriZer = new Vector<Ezaugarria>();
 
@@ -358,6 +294,7 @@ public class AplikazioDatuBase
 				Ezaugarria e = new Ezaugarria(rs.getString(2),rs.getString(1));
 				ezaugarriZer.add(e);
 			}
+			rs.close();
 		}
     	catch (SQLException e) {
 			e.printStackTrace();
@@ -365,7 +302,11 @@ public class AplikazioDatuBase
     	return ezaugarriZer;
     }
 
-//Agentea irteera eta honen data zehaztuta, bidai horretarako dauden plaza libre kopurua itzultzen da.
+    /**
+     * Agentea, irteera eta honen data zehaztuta, bidai horretarako dauden plaza libre kopurua itzultzen da.
+     *
+     * @return Vector<Ezaugarria>
+     */
 	public int getPlazaKop(String agenteId, String irteeraId, String data) throws RemoteException{
     	int plazaKop=0;
 		CallableStatement st;
@@ -405,7 +346,7 @@ public class AplikazioDatuBase
 				Data d = new Data(rs.getDate(1).toString(),agenteId,irteeraId,rs.getInt(2));
 				dataZer.add(d);
 			}
-		}	//ERROREA:
+		}
     	catch (SQLException e) {
 			e.printStackTrace();
 		}
