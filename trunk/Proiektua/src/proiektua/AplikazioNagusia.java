@@ -18,14 +18,19 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
+import javax.swing.JScrollPane;
+import javax.swing.JTextPane;
 
 public class AplikazioNagusia extends JFrame { //extends Observable?
 	//INTERFAZEA
 	public static AplikazioNagusiaKudInterfazea nlInt;  //  @jve:decl-index=0:visual-constraint="38,6"
 
-	private static Vector<Agentea> agenteZer = new Vector();
-	private static Vector<Ezaugarria> ezaugarriZer = new Vector();  //  @jve:decl-index=0:
-	private static Vector<Data> dataZer = new Vector();
+	private Vector<Agentea> agenteZer = new Vector();
+	private Vector<Ezaugarria> ezaugarriZer = new Vector();  //  @jve:decl-index=0:
+	private Vector<Data> dataZer = new Vector();
+	private Vector<Turista> turistaZer = new Vector();
+	private Integer sartutakoTuristak= new Integer(0);//  @jve:decl-index=0:
+	private String zenb;
 
 	private JFrame frameErreserba = null;
 	private JPanel edukiontziErreserba = null;
@@ -50,10 +55,12 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 	private JButton btnSartuTurista = null;
 	private JButton btnBidali = null;
 	private JButton btnEzeztatu = null;
-	private JTextArea taErreserba = null;
 	private JLabel labErreserba = null;
 
 	private JLabel labEzaugarriak = null;
+
+	private JTextArea taErreserba = null;
+
 	/**
 	 * This method initializes frameErreserba
 	 *
@@ -126,8 +133,8 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 			edukiontziErreserba.add(getBtnSartuTurista(), null);
 			edukiontziErreserba.add(getBtnBidali(), null);
 			edukiontziErreserba.add(getBtnEzeztatu(), null);
-			edukiontziErreserba.add(getTaErreserba(), null);
 			edukiontziErreserba.add(labErreserba, null);
+			edukiontziErreserba.add(getTaErreserba(), null);
 			edukiontziErreserba.add(labEzaugarriak, null);
 		}
 		return edukiontziErreserba;
@@ -295,7 +302,7 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 						String data = dataZer.get(cmbIrteeraData.getSelectedIndex()).getData();
 						int bidaiariKop = cmbPertsonaKop.getSelectedIndex()+1;
 						//System.out.println("DATUAK: AgenteId:" + agenteId + " IrteeraId:" + irteeraId + " Data:" + data + " BidaiariKop:" + bidaiariKop);
-						String zenb = nlInt.getErreserbaBaieztapenZenbakia(agenteId, irteeraId, data, bidaiariKop);
+						zenb = nlInt.getErreserbaBaieztapenZenbakia(agenteId, irteeraId, data, bidaiariKop);
 						if(zenb!=null){
 							taErreserba.setText("Erreserba egin dezakezu.\nBaieztapen zenbakia: "+zenb+"\n");
 							baieztapenInterfazea();
@@ -356,6 +363,32 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 			btnSartuTurista.setBounds(new Rectangle(372, 244, 128, 26));
 			btnSartuTurista.setText("Sartu Turista");
 			btnSartuTurista.setEnabled(false);
+			btnSartuTurista.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					Turista t= new Turista(txtIzena.getText(),txtHelbidea.getText(),txtTelefonoa.getText());
+					if (sartutakoTuristak.intValue()<cmbPertsonaKop.getSelectedIndex()+1){
+						turistaZer.add(t);
+						sartutakoTuristak=new Integer(sartutakoTuristak.intValue()+1);
+						taErreserba.setText(taErreserba.getText() +
+								"\n Turista" + sartutakoTuristak.intValue() +":"
+								+ "\n Izena: " +txtIzena.getText() +
+								"\n Helbidea: " + txtHelbidea.getText()+
+								"\n Telefonoa: " + txtTelefonoa.getText());
+						txtIzena.setText("");
+						txtHelbidea.setText("");
+						txtTelefonoa.setText("");
+						if(sartutakoTuristak.intValue()==cmbPertsonaKop.getSelectedIndex()+1){
+							btnSartuTurista.setEnabled(false);
+							btnBidali.setEnabled(true);
+							sartutakoTuristak= new Integer(0);
+						}
+					}else{
+						btnSartuTurista.setEnabled(false);
+						btnBidali.setEnabled(true);
+						sartutakoTuristak= new Integer(0);
+					}
+				}
+			});
 		}
 		return btnSartuTurista;
 	}
@@ -371,6 +404,31 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 			btnBidali.setBounds(new Rectangle(372, 282, 128, 26));
 			btnBidali.setText("Bidali");
 			btnBidali.setEnabled(false);
+			btnBidali.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					//Erreserba eta Turistak datu basean sartu
+					try {
+						nlInt.sartutErreserba(zenb, turistaZer.size(), ezaugarriZer.get(cmbEzaugarriak.getSelectedIndex()).getId(), agenteZer.get(cmbAgenteak.getSelectedIndex()).getId());
+					} catch (RemoteException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}
+					for(int i=0;i<turistaZer.size();i++){
+						try {
+							nlInt.sartuTurista(turistaZer.get(i).getIzena(),
+									turistaZer.get(i).getHelbidea(),
+									turistaZer.get(i).getTelefonoa(),
+									(i+1)+"");
+						} catch (RemoteException e1) {
+							e1.printStackTrace();
+							System.out.println("ERROREA"+i+". turista sartzen arazoa");
+						}
+					}
+					System.out.println("Erreserbak ondo egin dira");
+					hasieratuInterfazea();
+
+				}
+			});
 		}
 		return btnBidali;
 	}
@@ -384,24 +442,16 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 		if (btnEzeztatu == null) {
 			btnEzeztatu = new JButton();
 			btnEzeztatu.setBounds(new Rectangle(373, 318, 128, 26));
+			btnEzeztatu.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					turistaZer.removeAllElements();
+					hasieratuInterfazea();
+				}
+			});
 			btnEzeztatu.setText("Ezeztatu");
 			btnEzeztatu.setEnabled(false);
 		}
 		return btnEzeztatu;
-	}
-
-	/**
-	 * This method initializes taErreserba
-	 *
-	 * @return javax.swing.JTextArea
-	 */
-	private JTextArea getTaErreserba() {
-		if (taErreserba == null) {
-			taErreserba = new JTextArea();
-			taErreserba.setBounds(new Rectangle(527, 37, 197, 151));
-			taErreserba.setEditable(false);
-		}
-		return taErreserba;
 	}
 
 	/**
@@ -434,6 +484,19 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 			}
 		});
 		this.setLocationRelativeTo(null);
+	}
+
+	/**
+	 * This method initializes taErreserba
+	 *
+	 * @return javax.swing.JTextArea
+	 */
+	private JTextArea getTaErreserba() {
+		if (taErreserba == null) {
+			taErreserba = new JTextArea();
+			taErreserba.setBounds(new Rectangle(519, 37, 215, 320));
+		}
+		return taErreserba;
 	}
 
 	/**
@@ -520,6 +583,30 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 		txtTelefonoa.setEnabled(true);
 		btnSartuTurista.setEnabled(true);
 		btnEzeztatu.setEnabled(true);
+	}
+	private void hasieratuInterfazea(){
+		txtBaieztapenZenb.setEnabled(false);
+		btnSartuErreserba.setEnabled(false);
+		txtIzena.setEnabled(false);
+		txtHelbidea.setEnabled(false);
+		txtTelefonoa.setEnabled(false);
+		btnSartuTurista.setEnabled(false);
+		btnEzeztatu.setEnabled(false);
+		btnBidali.setEnabled(false);
+		btnSartuErreserba.setEnabled(false);
+
+		cmbAgenteak.setEnabled(true);
+		cmbEzaugarriak.setEnabled(true);
+		cmbIrteeraData.setEnabled(true);
+		cmbPertsonaKop.setEnabled(true);
+		btnErreserbaBerria.setEnabled(true);
+
+		taErreserba.setText("");
+		txtBaieztapenZenb.setText("");
+		txtIzena.setText("");
+		txtHelbidea.setText("");
+		txtTelefonoa.setText("");
+
 	}
 }
 

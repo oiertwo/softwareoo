@@ -13,6 +13,7 @@ public class AplikazioDatuBase
 {
     private static AplikazioDatuBase instantzia;
     public static java.sql.Connection konexioa;
+    private int erreserbaZenb=0;
 
     /**
     * Datu basea hasieratzen
@@ -118,6 +119,10 @@ public class AplikazioDatuBase
         int pertsonaKopurua,
         String agentearenKodea)
     {
+
+
+
+    	erreserbaZenb=lortuErreserbaZenb()+1;
         // Erazagupena
         int count = 0;
         PreparedStatement insertSententzia = null;
@@ -156,18 +161,34 @@ public class AplikazioDatuBase
             return count;
         }
     }
-    /**
+    private int lortuErreserbaZenb() {
+    	int z = 0;
+    	CallableStatement st;
+    	ResultSet rs=null;
+		try {
+			st = konexioa.prepareCall("SELECT COUNT(*) FROM erreserbak");
+			rs = st.executeQuery();
+			while(rs.next()) {
+				z=rs.getInt(1);
+				System.out.println(z);
+			}
+		}
+    	catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	return z;
+	}
+	/**
     * Erreserbaren ezugarriak txertatzen datu-basean
     * @return count int
     * @param data java.util.Date
     * @param amount double
     */
     public int sartutErreserbaIten(
-        int erreserbarenZenbakia,
-        int baieztapenZenbakia,
-        double prezioa,
+        String baieztapenZenbakia,
+        int turistaKop,
         String irteerarenKodea,
-        java.util.Date data)
+        String agenteKodea)
     {
         // Erazagupenak
         int count = 0;
@@ -176,14 +197,15 @@ public class AplikazioDatuBase
         try
             {
             // Insert sententzia sortu
+        	erreserbaZenb++;
             insertSententzia =
-                konexioa.prepareStatement("INSERT INTO Erreserba_Iten VALUES (?, ?, ?, ?, ?)");
+                konexioa.prepareStatement("INSERT INTO Erreserbak VALUES (?, ?, ?, ?, ?)");
             //  Insert sententzia hasieratu
-            insertSententzia.setInt(1, erreserbarenZenbakia);
-            insertSententzia.setInt(2, baieztapenZenbakia);
-            insertSententzia.setDouble(3, prezioa);
-            insertSententzia.setString(4, irteerarenKodea);
-            insertSententzia.setDate(5, new java.sql.Date(data.getTime()));
+            insertSententzia.setString(1, erreserbaZenb+"");
+            insertSententzia.setString(4, baieztapenZenbakia);
+            insertSententzia.setInt(5, turistaKop);
+            insertSententzia.setString(2, irteerarenKodea);
+            insertSententzia.setString(3, agenteKodea);
             //  Insert sententzia exekutatu
             count = insertSententzia.executeUpdate();
             //  Insert sententzia amaitu
@@ -218,7 +240,7 @@ public class AplikazioDatuBase
         String izena,
         String helbidea,
         String telefonoa,
-        int erreserbarenZenbakia)
+        String turistaZenbakia)
     {
         // Erazagupenak
         int count = 0;
@@ -228,12 +250,13 @@ public class AplikazioDatuBase
             {
             // Insert sententzia sortu
             insertSententzia =
-      konexioa.prepareStatement("INSERT INTO Turista VALUES (?, ?, ?, ?)");
+      konexioa.prepareStatement("INSERT INTO Turistak VALUES (?, ?, ?, ?, ?)");
             // Hasieratu Insert statement
-            insertSententzia.setString(1, izena);
-            insertSententzia.setString(2, helbidea);
-            insertSententzia.setString(3, telefonoa);
-            insertSententzia.setInt(4, erreserbarenZenbakia);
+            insertSententzia.setString(3, izena);
+            insertSententzia.setString(4, helbidea);
+            insertSententzia.setString(5, telefonoa);
+            insertSententzia.setString(2, erreserbaZenb+"");
+            insertSententzia.setString(1, turistaZenbakia);
             // Insert sententzia exekutatu
             count = insertSententzia.executeUpdate();
             // Insert sententzia amaitu

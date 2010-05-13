@@ -90,4 +90,19 @@ public class AplikazioNagusiaKud extends UnicastRemoteObject implements Aplikazi
 		return aplikazioDatuBase.getDatak(aId, iId);
 	}
 
+	public int sartuTurista(String izena, String helbidea, String telefonoa,
+			 String turistaZenbakia)
+			throws RemoteException {
+
+		return aplikazioDatuBase.sartuTurista(izena, helbidea, telefonoa, turistaZenbakia);
+	}
+
+	public int sartutErreserba(String baieztapenZenbakia, int turistaKop,
+			String irteerarenKodea, String agenteKodea) throws RemoteException {
+		// TODO Auto-generated method stub
+		return aplikazioDatuBase.sartutErreserbaIten(baieztapenZenbakia, turistaKop, irteerarenKodea, agenteKodea);
+	}
+
+
+
 }
