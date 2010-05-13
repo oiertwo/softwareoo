@@ -9,7 +9,7 @@ public class Erreserba {
     private String agenteId;
     private String baieztapenZenbakia;
     private int turistaKop;
-
+    
     public Erreserba(String baiZenb, int turKop){
         this.baieztapenZenbakia=baiZenb;
         this.turistaKop=turKop;
