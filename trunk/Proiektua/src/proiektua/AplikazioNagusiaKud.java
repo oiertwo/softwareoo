@@ -18,7 +18,7 @@ public class AplikazioNagusiaKud extends UnicastRemoteObject implements Aplikazi
 	public AplikazioNagusiaKud() throws RemoteException{
 		super();
 		//AplikazioDatuBase klasearen instantzia egin, honekin DB-ra konektatuko da.
-		aplikazioDatuBase = new AplikazioDatuBase();
+		aplikazioDatuBase = AplikazioDatuBase.getInstance();
 		//Beste kudeatzaileen instantziak:
 		//erreserbaEginKud = new erreserbaEgin.erreserbaEginKud();
 	}
