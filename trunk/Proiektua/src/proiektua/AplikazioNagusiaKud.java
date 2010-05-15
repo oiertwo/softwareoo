@@ -7,8 +7,6 @@ import java.sql.*;
 import java.util.Observable;
 import java.util.Vector;
 
-//import erreserbaEgin.Aparkalekua; (Beste pakete bateko klasea)
-
 //extends Observable???
 public class AplikazioNagusiaKud extends UnicastRemoteObject implements AplikazioNagusiaKudInterfazea{
 	//Erabiliko d(ir)en klaseak adierazi (LOTURAK):
@@ -19,8 +17,6 @@ public class AplikazioNagusiaKud extends UnicastRemoteObject implements Aplikazi
 		super();
 		//AplikazioDatuBase klasearen instantzia egin, honekin DB-ra konektatuko da.
 		aplikazioDatuBase = AplikazioDatuBase.getInstance();
-		//Beste kudeatzaileen instantziak:
-		//erreserbaEginKud = new erreserbaEgin.erreserbaEginKud();
 	}
 
 	/**
