@@ -79,7 +79,7 @@ public class AplikazioNagusiaTuristak extends JFrame{
 	private JFrame getTuristakSartuFrame() {
 		if (turistakSartuFrame == null) {
 			turistakSartuFrame = new JFrame();
-			turistakSartuFrame.setSize(new Dimension(552, 467));
+			turistakSartuFrame.setSize(new Dimension(552, 296));
 			turistakSartuFrame.setTitle("Turistak sartu");
 			turistakSartuFrame.setContentPane(getTuristakSartuEdukiontzia());
 		}
@@ -182,7 +182,7 @@ public class AplikazioNagusiaTuristak extends JFrame{
 	private JTextArea getTaErreserba() {
 		if (taErreserba == null) {
 			taErreserba = new JTextArea();
-			taErreserba.setBounds(new Rectangle(297, 26, 235, 402));
+			taErreserba.setBounds(new Rectangle(297, 26, 235, 219));
 			taErreserba.setEditable(false);
 		}
 		return taErreserba;
@@ -209,16 +209,10 @@ public class AplikazioNagusiaTuristak extends JFrame{
 						unekoPosizioa++;
 						joanPosiziora(unekoPosizioa);
 					}
-					erakutsiTuristak();
 				}
 			});
 		}
 		return btnSartuTurista;
-	}
-
-	private void erakutsiTuristak(){
-		for(int i=0; i<turistaZer.size();i++)
-			System.out.println(i+". posizioko turista:"+turistaZer.get(i).getIzena());
 	}
 
 	/**
@@ -237,8 +231,6 @@ public class AplikazioNagusiaTuristak extends JFrame{
 					//gehituTurista(unekoPosizioa);
 					unekoPosizioa--;
 					joanPosiziora(unekoPosizioa);
-
-					erakutsiTuristak();
 				}
 			});
 		}
