@@ -34,29 +34,20 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 	private Integer sartutakoTuristak= new Integer(0);  //  beste framean
 	private String zenb;
 
-	private JFrame frameErreserba = null;
+	private JFrame frameErreserba = null;  //  @jve:decl-index=0:visual-constraint="10,420"
 	private JPanel edukiontziErreserba = null;
 	private JLabel labAgentea = null;
 	private JLabel labPertsonaKop = null;
 	private JLabel labaugarriak = null;
 	private JLabel labIrteeraData = null;
 	private JLabel labBaieztapenZenb = null;
-	private JLabel labIzena = null;
-	private JLabel labHelbidea = null;
-	private JLabel labTelefonoa = null;
 	private JComboBox cmbPertsonaKop = null;
 	private JComboBox cmbAgenteak = null;
 	private JComboBox cmbEzaugarriak = null;
 	private JComboBox cmbIrteeraData = null;
 	private JTextField txtBaieztapenZenb = null;
-	private JTextField txtIzena = null;
-	private JTextField txtHelbidea = null;
-	private JTextField txtTelefonoa = null;
 	private JButton btnErreserbaBerria = null;
 	private JButton btnSartuErreserba = null;
-	private JButton btnSartuTurista = null;
-	private JButton btnBidali = null;
-	private JButton btnEzeztatu = null;
 	private JLabel labErreserba = null;
 
 	private JLabel labEzaugarriak = null;
@@ -71,7 +62,7 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 	private JFrame getFrameErreserba() {
 		if (frameErreserba == null) {
 			frameErreserba = new JFrame();
-			frameErreserba.setSize(new Dimension(738, 408));
+			frameErreserba.setSize(new Dimension(752, 315));
 			frameErreserba.setTitle("Erreserba sistema");
 			frameErreserba.setContentPane(getEdukiontziErreserba());
 		}
@@ -89,28 +80,19 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 			labEzaugarriak.setBounds(new Rectangle(13, 67, 141, 16));
 			labEzaugarriak.setText("Irteeraren ezaugarriak");
 			labErreserba = new JLabel();
-			labErreserba.setBounds(new Rectangle(591, 12, 66, 16));
+			labErreserba.setBounds(new Rectangle(435, 13, 66, 16));
 			labErreserba.setText("Erreserba");
-			labTelefonoa = new JLabel();
-			labTelefonoa.setBounds(new Rectangle(15, 324, 63, 16));
-			labTelefonoa.setText("Telefonoa");
-			labHelbidea = new JLabel();
-			labHelbidea.setBounds(new Rectangle(14, 284, 57, 16));
-			labHelbidea.setText("Helbidea");
-			labIzena = new JLabel();
-			labIzena.setBounds(new Rectangle(14, 244, 41, 16));
-			labIzena.setText("Izena");
 			labBaieztapenZenb = new JLabel();
-			labBaieztapenZenb.setBounds(new Rectangle(13, 212, 127, 16));
+			labBaieztapenZenb.setBounds(new Rectangle(13, 249, 127, 16));
 			labBaieztapenZenb.setText("Baieztapen zenbakia");
 			labIrteeraData = new JLabel();
-			labIrteeraData.setBounds(new Rectangle(15, 108, 72, 16));
+			labIrteeraData.setBounds(new Rectangle(15, 114, 72, 16));
 			labIrteeraData.setText("Irteera data");
 			labEzaugarriak = new JLabel();
-			labEzaugarriak.setBounds(new Rectangle(14, 66, 136, 16));
+			labEzaugarriak.setBounds(new Rectangle(13, 74, 136, 16));
 			labEzaugarriak.setText("Irteeraren ezaugarriak");
 			labPertsonaKop = new JLabel();
-			labPertsonaKop.setBounds(new Rectangle(15, 150, 107, 16));
+			labPertsonaKop.setBounds(new Rectangle(16, 156, 107, 16));
 			labPertsonaKop.setText("Pertsona kopurua");
 			edukiontziErreserba = new JPanel();
 			edukiontziErreserba.setLayout(null);
@@ -119,22 +101,13 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 			edukiontziErreserba.add(labEzaugarriak, null);
 			edukiontziErreserba.add(labIrteeraData, null);
 			edukiontziErreserba.add(labBaieztapenZenb, null);
-			edukiontziErreserba.add(labIzena, null);
-			edukiontziErreserba.add(labHelbidea, null);
-			edukiontziErreserba.add(labTelefonoa, null);
 			edukiontziErreserba.add(getCmbPertsonaKop(), null);
 			edukiontziErreserba.add(getCmbAgenteak(), null);
 			edukiontziErreserba.add(getCmbEzaugarriak(), null);
 			edukiontziErreserba.add(getCmbIrteeraData(), null);
 			edukiontziErreserba.add(getTxtBaieztapenZenb(), null);
-			edukiontziErreserba.add(getTxtIzena(), null);
-			edukiontziErreserba.add(getTxtHelbidea(), null);
-			edukiontziErreserba.add(getTxtTelefonoa(), null);
 			edukiontziErreserba.add(getBtnErreserbaBerria(), null);
 			edukiontziErreserba.add(getBtnSartuErreserba(), null);
-			edukiontziErreserba.add(getBtnSartuTurista(), null);
-			edukiontziErreserba.add(getBtnBidali(), null);
-			edukiontziErreserba.add(getBtnEzeztatu(), null);
 			edukiontziErreserba.add(labErreserba, null);
 			edukiontziErreserba.add(getTaErreserba(), null);
 			edukiontziErreserba.add(labEzaugarriak, null);
@@ -151,7 +124,7 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 		if (labAgentea == null) {
 			labAgentea = new JLabel();
 			labAgentea.setText("Erreserba Agentea");
-			labAgentea.setBounds(new Rectangle(14, 24, 130, 15));
+			labAgentea.setBounds(new Rectangle(14, 36, 130, 15));
 		}
 		return labAgentea;
 	}
@@ -164,7 +137,7 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 	private JComboBox getCmbPertsonaKop() {
 		if (cmbPertsonaKop == null) {
 			cmbPertsonaKop = new JComboBox();
-			cmbPertsonaKop.setBounds(new Rectangle(169, 144, 53, 25));
+			cmbPertsonaKop.setBounds(new Rectangle(170, 151, 53, 25));
 			for(int i=1;i<=10;i++){
 				cmbPertsonaKop.addItem(i);
 			}
@@ -180,7 +153,7 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 	private JComboBox getCmbAgenteak() {
 		if (cmbAgenteak == null) {
 			cmbAgenteak = new JComboBox();
-			cmbAgenteak.setBounds(new Rectangle(169, 18, 154, 25));
+			cmbAgenteak.setBounds(new Rectangle(169, 30, 154, 25));
 			agenteakKargatu();
 			cmbAgenteak.addItemListener(new java.awt.event.ItemListener() {
 				public void itemStateChanged(java.awt.event.ItemEvent e) {
@@ -202,7 +175,7 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 	private JComboBox getCmbEzaugarriak() {
 		if (cmbEzaugarriak == null) {
 			cmbEzaugarriak = new JComboBox();
-			cmbEzaugarriak.setBounds(new Rectangle(169, 63, 155, 25));
+			cmbEzaugarriak.setBounds(new Rectangle(168, 71, 155, 25));
 			eguneratuEzaugarriak();
 
 			cmbEzaugarriak.addItemListener(new java.awt.event.ItemListener() {
@@ -223,7 +196,7 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 	private JComboBox getCmbIrteeraData() {
 		if (cmbIrteeraData == null) {
 			cmbIrteeraData = new JComboBox();
-			cmbIrteeraData.setBounds(new Rectangle(169, 105, 140, 25));
+			cmbIrteeraData.setBounds(new Rectangle(169, 111, 112, 25));
 			datakKargatu();
 		}
 		return cmbIrteeraData;
@@ -237,52 +210,10 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 	private JTextField getTxtBaieztapenZenb() {
 		if (txtBaieztapenZenb == null) {
 			txtBaieztapenZenb = new JTextField();
-			txtBaieztapenZenb.setBounds(new Rectangle(168, 211, 79, 20));
+			txtBaieztapenZenb.setBounds(new Rectangle(168, 248, 79, 20));
 			txtBaieztapenZenb.setEnabled(false);
 		}
 		return txtBaieztapenZenb;
-	}
-
-	/**
-	 * This method initializes txtIzena
-	 *
-	 * @return javax.swing.JTextField
-	 */
-	private JTextField getTxtIzena() {
-		if (txtIzena == null) {
-			txtIzena = new JTextField();
-			txtIzena.setBounds(new Rectangle(168, 248, 163, 20));
-			txtIzena.setEnabled(false);
-		}
-		return txtIzena;
-	}
-
-	/**
-	 * This method initializes txtHelbidea
-	 *
-	 * @return javax.swing.JTextField
-	 */
-	private JTextField getTxtHelbidea() {
-		if (txtHelbidea == null) {
-			txtHelbidea = new JTextField();
-			txtHelbidea.setBounds(new Rectangle(168, 285, 181, 20));
-			txtHelbidea.setEnabled(false);
-		}
-		return txtHelbidea;
-	}
-
-	/**
-	 * This method initializes txtTelefonoa
-	 *
-	 * @return javax.swing.JTextField
-	 */
-	private JTextField getTxtTelefonoa() {
-		if (txtTelefonoa == null) {
-			txtTelefonoa = new JTextField();
-			txtTelefonoa.setBounds(new Rectangle(168, 320, 125, 20));
-			txtTelefonoa.setEnabled(false);
-		}
-		return txtTelefonoa;
 	}
 
 	/**
@@ -293,7 +224,7 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 	private JButton getBtnErreserbaBerria() {
 		if (btnErreserbaBerria == null) {
 			btnErreserbaBerria = new JButton();
-			btnErreserbaBerria.setBounds(new Rectangle(366, 86, 142, 35));
+			btnErreserbaBerria.setBounds(new Rectangle(61, 193, 142, 35));
 			btnErreserbaBerria.setText("Erreserba berria");
 			btnErreserbaBerria.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -329,7 +260,7 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 	private JButton getBtnSartuErreserba() {
 		if (btnSartuErreserba == null) {
 			btnSartuErreserba = new JButton();
-			btnSartuErreserba.setBounds(new Rectangle(372, 206, 128, 26));
+			btnSartuErreserba.setBounds(new Rectangle(356, 243, 128, 26));
 			btnSartuErreserba.setText("Sartu erreserba");
 			btnSartuErreserba.setEnabled(false);
 			btnSartuErreserba.addActionListener(new java.awt.event.ActionListener() {
@@ -355,116 +286,6 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 	}
 
 	/**
-	 * This method initializes btnSartuTurista
-	 *
-	 * @return javax.swing.JButton
-	 */
-	private JButton getBtnSartuTurista() {
-		if (btnSartuTurista == null) {
-			btnSartuTurista = new JButton();
-			btnSartuTurista.setBounds(new Rectangle(372, 244, 128, 26));
-			btnSartuTurista.setText("Sartu Turista");
-			btnSartuTurista.setEnabled(false);
-			btnSartuTurista.addActionListener(new java.awt.event.ActionListener() {
-				public void actionPerformed(java.awt.event.ActionEvent e) {
-					if(txtIzena.getText().equals("") || txtHelbidea.getText().equals("") || txtTelefonoa.getText().equals("")){
-						JOptionPane.showMessageDialog(null,"Turistari buruzko datu guztiak bete behar dira.","Turista sartu",JOptionPane.WARNING_MESSAGE);
-					}
-					else{
-						Turista t= new Turista(txtIzena.getText(),txtHelbidea.getText(),txtTelefonoa.getText());
-						if (sartutakoTuristak.intValue() < cmbPertsonaKop.getSelectedIndex()+1){
-							turistaZer.add(t);
-							sartutakoTuristak=new Integer(sartutakoTuristak.intValue()+1);
-							taErreserba.setText(taErreserba.getText() +
-								"\n Turista" + sartutakoTuristak.intValue() +":"
-								+ "\n Izena: " +txtIzena.getText() +
-								"\n Helbidea: " + txtHelbidea.getText()+
-								"\n Telefonoa: " + txtTelefonoa.getText());
-							txtIzena.setText("");
-							txtHelbidea.setText("");
-							txtTelefonoa.setText("");
-							if(sartutakoTuristak.intValue()==cmbPertsonaKop.getSelectedIndex()+1){
-								bidaliErreserbaInterfazea();
-								sartutakoTuristak= new Integer(0);
-							}
-						}else{
-							btnSartuTurista.setEnabled(false);
-							btnBidali.setEnabled(true);
-							sartutakoTuristak= new Integer(0);
-						}
-					}
-				}
-			});
-		}
-		return btnSartuTurista;
-	}
-
-	/**
-	 * This method initializes btnBidali
-	 *
-	 * @return javax.swing.JButton
-	 */
-	private JButton getBtnBidali() {
-		if (btnBidali == null) {
-			btnBidali = new JButton();
-			btnBidali.setBounds(new Rectangle(372, 282, 128, 26));
-			btnBidali.setText("Bidali");
-			btnBidali.setEnabled(false);
-			btnBidali.addActionListener(new java.awt.event.ActionListener() {
-				public void actionPerformed(java.awt.event.ActionEvent e) {
-					//Erreserba eta Turistak datu basean sartu
-					try {
-						String data = cmbIrteeraData.getSelectedItem().toString();
-						nlInt.sartuErreserba(zenb, turistaZer.size(), ezaugarriZer.get(cmbEzaugarriak.getSelectedIndex()).getId(), agenteZer.get(cmbAgenteak.getSelectedIndex()).getId(),data);
-					} catch (RemoteException e2) {
-						e2.printStackTrace();
-					}
-					for(int i=0;i<turistaZer.size();i++){
-						try {
-							nlInt.sartuTurista(turistaZer.get(i).getIzena(),
-									turistaZer.get(i).getHelbidea(),
-									turistaZer.get(i).getTelefonoa(),
-									(i+1)+"");
-						} catch (RemoteException e1) {
-							e1.printStackTrace();
-							System.out.println("ERROREA"+i+". turista sartzen arazoa");
-						}
-					}
-					JOptionPane.showMessageDialog(null,"Erreserbak ondo egin dira.","Erreserbaren baieztapena",JOptionPane.PLAIN_MESSAGE);
-					hasieratuInterfazea();
-
-				}
-			});
-		}
-		return btnBidali;
-	}
-
-	/**
-	 * This method initializes btnEzeztatu
-	 *
-	 * @return javax.swing.JButton
-	 */
-	private JButton getBtnEzeztatu() {
-		if (btnEzeztatu == null) {
-			btnEzeztatu = new JButton();
-			btnEzeztatu.setBounds(new Rectangle(373, 318, 128, 26));
-			btnEzeztatu.addActionListener(new java.awt.event.ActionListener() {
-				public void actionPerformed(java.awt.event.ActionEvent e) {
-					Object[] aukerak = {"Bai","Ez"};
-					if(JOptionPane.showOptionDialog(null, "Erreserba ezeztatzera zoaz.\nZiur al zaude?", "Erreserbaren ezeztapena",JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,null, aukerak, aukerak[0])==0){
-						JOptionPane.showMessageDialog(null,"Erreserba ezeztatu da.","Erreserbaren ezeztapena",JOptionPane.PLAIN_MESSAGE);
-						turistaZer.removeAllElements();
-						hasieratuInterfazea();
-					}
-				}
-			});
-			btnEzeztatu.setText("Ezeztatu");
-			btnEzeztatu.setEnabled(false);
-		}
-		return btnEzeztatu;
-	}
-
-	/**
 	 * This is the default constructor
 	 */
 	public AplikazioNagusia() {
@@ -478,7 +299,7 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(750, 400);
+		this.setSize(600, 320);
 		//this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/llanta.gif")));
 		this.setResizable(false);
 		this.setContentPane(getEdukiontziErreserba());
@@ -504,7 +325,8 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 	private JTextArea getTaErreserba() {
 		if (taErreserba == null) {
 			taErreserba = new JTextArea();
-			taErreserba.setBounds(new Rectangle(519, 37, 215, 320));
+			taErreserba.setBounds(new Rectangle(363, 38, 215, 176));
+			taErreserba.setEditable(false);
 		}
 		return taErreserba;
 	}
@@ -578,8 +400,9 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 		cmbPertsonaKop.setEnabled(false);
 		btnErreserbaBerria.setEnabled(false);
 		//Baieztapen zenbakia sartzeko botoia erakutsi:
-		txtBaieztapenZenb.setEnabled(true);
 		btnSartuErreserba.setEnabled(true);
+		txtBaieztapenZenb.setEnabled(true);
+		txtBaieztapenZenb.requestFocus();
 	}
 
 	private void turistakSartuInterfazea(){
@@ -591,44 +414,8 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 		String data = cmbIrteeraData.getSelectedItem().toString();
 		AplikazioNagusiaTuristak aplikTuristak = new AplikazioNagusiaTuristak(zenb, ezaugarriZer.get(cmbEzaugarriak.getSelectedIndex()).getId(), agenteZer.get(cmbAgenteak.getSelectedIndex()).getId(),data,cmbPertsonaKop.getSelectedIndex()+1);
 		aplikTuristak.setVisible(true);
-		/*txtIzena.setEnabled(true);
-		txtHelbidea.setEnabled(true);
-		txtTelefonoa.setEnabled(true);
-		btnSartuTurista.setEnabled(true);
-		btnEzeztatu.setEnabled(true);*/
-	}
-	private void hasieratuInterfazea(){
-		txtBaieztapenZenb.setEnabled(false);
-		btnSartuErreserba.setEnabled(false);
-		txtIzena.setEnabled(false);
-		txtHelbidea.setEnabled(false);
-		txtTelefonoa.setEnabled(false);
-		btnSartuTurista.setEnabled(false);
-		btnEzeztatu.setEnabled(false);
-		btnBidali.setEnabled(false);
-		btnSartuErreserba.setEnabled(false);
-
-		cmbAgenteak.setEnabled(true);
-		cmbEzaugarriak.setEnabled(true);
-		cmbIrteeraData.setEnabled(true);
-		cmbPertsonaKop.setEnabled(true);
-		btnErreserbaBerria.setEnabled(true);
-
-		taErreserba.setText("");
-		txtBaieztapenZenb.setText("");
-		txtIzena.setText("");
-		txtHelbidea.setText("");
-		txtTelefonoa.setText("");
-
 	}
 
-	private void bidaliErreserbaInterfazea(){
-		btnSartuTurista.setEnabled(false);
-		btnBidali.setEnabled(true);
-		txtIzena.setEnabled(false);
-		txtHelbidea.setEnabled(false);
-		txtTelefonoa.setEnabled(false);
-	}
 }
 
 /*Uneko frame eskutatzeko eta beste frame bat irekitzeko:
