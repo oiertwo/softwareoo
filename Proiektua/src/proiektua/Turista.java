@@ -4,11 +4,14 @@
  */
 
 package proiektua;
+
+import java.io.Serializable;
+
 /**
  *
  * @author oier
  */
-public class Turista {
+public class Turista implements Serializable{
 
     //private String turistaId;
     //private String erreserbaId;

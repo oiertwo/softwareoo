@@ -197,12 +197,7 @@ public class AplikazioDatuBase
     * @param data java.util.Date
     * @param amount double
     */
-    public int sartuTurista(
-        String izena,
-        String helbidea,
-        String telefonoa,
-        String turistaZenbakia)
-    {
+    public void sartuTurista(String izena,String helbidea,String telefonoa,String turistaZenbakia){
         // Erazagupenak
         int count = 0;
         PreparedStatement insertSententzia = null;
@@ -232,11 +227,6 @@ public class AplikazioDatuBase
         catch (java.lang.Exception anException)
             {
             anException.printStackTrace();
-        }
-        // Irteera
-        finally
-            {
-            return count;
         }
     }
     /**

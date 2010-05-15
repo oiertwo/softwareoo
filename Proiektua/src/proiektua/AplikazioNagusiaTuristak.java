@@ -35,7 +35,7 @@ public class AplikazioNagusiaTuristak extends JFrame{
 	private JButton btnBidali = null;
 	private JButton btnEzeztatu = null;
 
-	private Vector<Turista> turistaZer = new Vector();  //  @jve:decl-index=0:
+	//private Vector<Turista> turistaZer = new Vector();  //  @jve:decl-index=0:
 	private int unekoPosizioa;
 
 	private String zenb;
@@ -55,6 +55,7 @@ public class AplikazioNagusiaTuristak extends JFrame{
 		pertsonaKop=perKop;
 		unekoPosizioa=0;
 		turistaSartuErreserbaInterfazea();
+		txtIzena.requestFocus();
 	}
 
 	private void initialize() {
@@ -79,7 +80,7 @@ public class AplikazioNagusiaTuristak extends JFrame{
 	private JFrame getTuristakSartuFrame() {
 		if (turistakSartuFrame == null) {
 			turistakSartuFrame = new JFrame();
-			turistakSartuFrame.setSize(new Dimension(552, 296));
+			turistakSartuFrame.setSize(new Dimension(519, 296));
 			turistakSartuFrame.setTitle("Turistak sartu");
 			turistakSartuFrame.setContentPane(getTuristakSartuEdukiontzia());
 		}
@@ -103,7 +104,7 @@ public class AplikazioNagusiaTuristak extends JFrame{
 			labTuristakSartu.setFont(new Font("Dialog", Font.BOLD, 18));
 			labTuristakSartu.setText("TURISTEN DATUAK SARTU");
 			labErreserba = new JLabel();
-			labErreserba.setBounds(new Rectangle(372, 7, 62, 16));
+			labErreserba.setBounds(new Rectangle(360, 7, 62, 16));
 			labErreserba.setText("Erreserba");
 			labTelefonoa = new JLabel();
 			labTelefonoa.setBounds(new Rectangle(16, 133, 68, 16));
@@ -182,7 +183,7 @@ public class AplikazioNagusiaTuristak extends JFrame{
 	private JTextArea getTaErreserba() {
 		if (taErreserba == null) {
 			taErreserba = new JTextArea();
-			taErreserba.setBounds(new Rectangle(297, 26, 235, 219));
+			taErreserba.setBounds(new Rectangle(297, 26, 192, 219));
 			taErreserba.setEditable(false);
 		}
 		return taErreserba;
@@ -251,17 +252,15 @@ public class AplikazioNagusiaTuristak extends JFrame{
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					//Erreserba eta Turistak datu basean sartu
 					try {
-						AplikazioNagusia.nlInt.sartuErreserba(zenb, turistaZer.size(), ezaugarriId, agenteId, irteeraData);
+						AplikazioNagusia.nlInt.sartuErreserba(zenb, ezaugarriId, agenteId, irteeraData);
 					} catch (RemoteException e2) {
 						e2.printStackTrace();
 					}
-					for(int i=0;i<turistaZer.size();i++){
-						try {
-								AplikazioNagusia.nlInt.sartuTurista(turistaZer.get(i).getIzena(),turistaZer.get(i).getHelbidea(),turistaZer.get(i).getTelefonoa(),(i+1)+"");
-						} catch (RemoteException e1) {
-							e1.printStackTrace();
-							System.out.println("ERROREA"+i+". turista sartzen arazoa");
-						}
+					try {
+						AplikazioNagusia.nlInt.sartuTuristak();
+					} catch (RemoteException e1) {
+						e1.printStackTrace();
+						System.out.println("ERROREA. Turista sartzean arazoa");
 					}
 					JOptionPane.showMessageDialog(null,"Erreserbak ondo egin dira.","Erreserbaren baieztapena",JOptionPane.PLAIN_MESSAGE);
 					hasieratuInterfazea();
@@ -287,7 +286,6 @@ public class AplikazioNagusiaTuristak extends JFrame{
 					Object[] aukerak = {"Bai","Ez"};
 					if(JOptionPane.showOptionDialog(null, "Erreserba ezeztatzera zoaz.\nZiur al zaude?", "Erreserbaren ezeztapena",JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,null, aukerak, aukerak[0])==0){
 						JOptionPane.showMessageDialog(null,"Erreserba ezeztatu da.","Erreserbaren ezeztapena",JOptionPane.PLAIN_MESSAGE);
-						turistaZer.removeAllElements();
 						hasieratuInterfazea();
 					}
 				}
@@ -318,6 +316,11 @@ public class AplikazioNagusiaTuristak extends JFrame{
 	}
 
 	private void hasieratuInterfazea(){
+		try {
+			AplikazioNagusia.nlInt.ezabatuTuristak();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
 		dispose();
 		AplikazioNagusia aplikNagusi = new AplikazioNagusia();
 		aplikNagusi.setVisible(true);
@@ -349,30 +352,29 @@ public class AplikazioNagusiaTuristak extends JFrame{
 	}
 
 	private void gehituTurista(int pos){
-		Turista t= new Turista(txtIzena.getText(),txtHelbidea.getText(),txtTelefonoa.getText());
-		if(turistaZer.size() > pos) turistaZer.setElementAt(t, pos);
-		else turistaZer.add(pos,t);
-
-		taErreserba.setText(taErreserba.getText() +
-				"Turista" + (unekoPosizioa+1)+":"
+		try {
+			AplikazioNagusia.nlInt.gehituTurista(txtIzena.getText(),txtHelbidea.getText(),txtTelefonoa.getText(),pos);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		taErreserba.setText(taErreserba.getText() + "***** " +
+				(unekoPosizioa+1)+ ". Turista" +" *****"
 				+ "\nIzena: " +txtIzena.getText() +
 				"\nHelbidea: " + txtHelbidea.getText()+
 				"\nTelefonoa: " + txtTelefonoa.getText()+"\n");
 	}
 
 	private void joanPosiziora(int pos){
+		Turista t=null;
 		labTuristaZenb.setText((pos+1)+"/"+pertsonaKop);
-		String izena="";
-		String helbidea="";
-		String telefonoa="";
-		if(turistaZer.size() > pos){
-			izena=turistaZer.get(pos).getIzena();
-			helbidea=turistaZer.get(pos).getHelbidea();
-			telefonoa=turistaZer.get(pos).getTelefonoa();
+		try {
+			t = AplikazioNagusia.nlInt.lortuTurista(pos);
+		} catch (RemoteException e) {
+			e.printStackTrace();
 		}
-		txtIzena.setText(izena);
-		txtHelbidea.setText(helbidea);
-		txtTelefonoa.setText(telefonoa);
+		txtIzena.setText(t.getIzena());
+		txtHelbidea.setText(t.getHelbidea());
+		txtTelefonoa.setText(t.getTelefonoa());
 		if(pos >= pertsonaKop){
 			bidaliErreserbaInterfazea();
 		}
