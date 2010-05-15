@@ -289,10 +289,10 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 	 */
 	private void initialize() {
 		this.setSize(600, 320);
-		//this.setIconImage(Toolkit.getDefaultToolkit().getImage("E:/Informatika/2_zikloa/software/praktika/kodea/Software/img/hegazkina.jpg"));
+		this.setIconImage(Toolkit.getDefaultToolkit().getImage("src/img/hegazkina.jpg"));
 		this.setResizable(false);
 		this.setContentPane(getEdukiontziErreserba());
-		this.setTitle("BIDAI AGENTZIA");
+		this.setTitle(" BIDAI AGENTZIA");
 		this.addWindowListener(new java.awt.event.WindowAdapter() {
 			public void windowClosing(java.awt.event.WindowEvent e) {
 				try{
