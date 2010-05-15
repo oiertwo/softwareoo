@@ -25,13 +25,13 @@ import javax.swing.JScrollBar;
 
 public class AplikazioNagusia extends JFrame { //extends Observable?
 	//INTERFAZEA
-	public static AplikazioNagusiaKudInterfazea nlInt;  //  @jve:decl-index=0:visual-constraint="38,6"
+	public static AplikazioNagusiaKudInterfazea nlInt;
 
 	private Vector<Agentea> agenteZer = new Vector();
 	private Vector<Ezaugarria> ezaugarriZer = new Vector();  //  @jve:decl-index=0:
 	private Vector<Data> dataZer = new Vector();
-	private Vector<Turista> turistaZer = new Vector();  //  @jve:decl-index=0:
-	private Integer sartutakoTuristak= new Integer(0);//  @jve:decl-index=0:
+	private Vector<Turista> turistaZer = new Vector();  //  beste framean
+	private Integer sartutakoTuristak= new Integer(0);  //  beste framean
 	private String zenb;
 
 	private JFrame frameErreserba = null;
@@ -339,7 +339,7 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 					try {
 						if(nlInt.baieztapenZenbakiaKonprobatu(sartutakoZenb)){
 							//Baieztapen zenbaki zuzena. Agenteak sartzeko interfazea erakutsi:
-							bezeroakSartuInterfazea();
+							turistakSartuInterfazea();
 							taErreserba.setText(taErreserba.getText()+"\nBaieztapen zenbakia zuzena.\nErreserba egin daiteke.");
 						}
 						else{
@@ -367,26 +367,31 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 			btnSartuTurista.setEnabled(false);
 			btnSartuTurista.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					Turista t= new Turista(txtIzena.getText(),txtHelbidea.getText(),txtTelefonoa.getText());
-					if (sartutakoTuristak.intValue()<cmbPertsonaKop.getSelectedIndex()+1){
-						turistaZer.add(t);
-						sartutakoTuristak=new Integer(sartutakoTuristak.intValue()+1);
-						taErreserba.setText(taErreserba.getText() +
+					if(txtIzena.getText().equals("") || txtHelbidea.getText().equals("") || txtTelefonoa.getText().equals("")){
+						JOptionPane.showMessageDialog(null,"Turistari buruzko datu guztiak bete behar dira.","Turista sartu",JOptionPane.WARNING_MESSAGE);
+					}
+					else{
+						Turista t= new Turista(txtIzena.getText(),txtHelbidea.getText(),txtTelefonoa.getText());
+						if (sartutakoTuristak.intValue() < cmbPertsonaKop.getSelectedIndex()+1){
+							turistaZer.add(t);
+							sartutakoTuristak=new Integer(sartutakoTuristak.intValue()+1);
+							taErreserba.setText(taErreserba.getText() +
 								"\n Turista" + sartutakoTuristak.intValue() +":"
 								+ "\n Izena: " +txtIzena.getText() +
 								"\n Helbidea: " + txtHelbidea.getText()+
 								"\n Telefonoa: " + txtTelefonoa.getText());
-						txtIzena.setText("");
-						txtHelbidea.setText("");
-						txtTelefonoa.setText("");
-						if(sartutakoTuristak.intValue()==cmbPertsonaKop.getSelectedIndex()+1){
-							bidaliErreserbaInterfazea();
+							txtIzena.setText("");
+							txtHelbidea.setText("");
+							txtTelefonoa.setText("");
+							if(sartutakoTuristak.intValue()==cmbPertsonaKop.getSelectedIndex()+1){
+								bidaliErreserbaInterfazea();
+								sartutakoTuristak= new Integer(0);
+							}
+						}else{
+							btnSartuTurista.setEnabled(false);
+							btnBidali.setEnabled(true);
 							sartutakoTuristak= new Integer(0);
 						}
-					}else{
-						btnSartuTurista.setEnabled(false);
-						btnBidali.setEnabled(true);
-						sartutakoTuristak= new Integer(0);
 					}
 				}
 			});
@@ -562,7 +567,6 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 		}
 		} catch (RemoteException e1) {
 			e1.printStackTrace();
-
 		}
 	}
 
@@ -578,16 +582,20 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 		btnSartuErreserba.setEnabled(true);
 	}
 
-	private void bezeroakSartuInterfazea(){
+	private void turistakSartuInterfazea(){
 		//Baieztapen zenbakia sartzeko botoia ezkutatu.
 		txtBaieztapenZenb.setEnabled(false);
 		btnSartuErreserba.setEnabled(false);
 		//Turistak sartzeko interfazea erakutsi:
-		txtIzena.setEnabled(true);
+		dispose();
+		String data = cmbIrteeraData.getSelectedItem().toString();
+		AplikazioNagusiaTuristak aplikTuristak = new AplikazioNagusiaTuristak(zenb, ezaugarriZer.get(cmbEzaugarriak.getSelectedIndex()).getId(), agenteZer.get(cmbAgenteak.getSelectedIndex()).getId(),data,cmbPertsonaKop.getSelectedIndex()+1);
+		aplikTuristak.setVisible(true);
+		/*txtIzena.setEnabled(true);
 		txtHelbidea.setEnabled(true);
 		txtTelefonoa.setEnabled(true);
 		btnSartuTurista.setEnabled(true);
-		btnEzeztatu.setEnabled(true);
+		btnEzeztatu.setEnabled(true);*/
 	}
 	private void hasieratuInterfazea(){
 		txtBaieztapenZenb.setEnabled(false);
