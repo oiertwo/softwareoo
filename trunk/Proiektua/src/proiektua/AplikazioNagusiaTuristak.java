@@ -5,6 +5,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Toolkit;
+
 import javax.swing.JLabel;
 import java.awt.Rectangle;
 import javax.swing.JTextField;
@@ -60,10 +62,10 @@ public class AplikazioNagusiaTuristak extends JFrame{
 
 	private void initialize() {
 		this.setSize(550, 324);
-		//this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/llanta.gif")));
+		this.setIconImage(Toolkit.getDefaultToolkit().getImage("src/img/turista.png"));
 		this.setResizable(false);
 		this.setContentPane(getTuristakSartuEdukiontzia());
-		this.setTitle("Erreserba sistema");
+		this.setTitle(" TURISTEN DATUEN SARRERA");
 		this.setLocationRelativeTo(null);
 		this.addWindowListener(new java.awt.event.WindowAdapter() {
 			public void windowClosing(java.awt.event.WindowEvent e) {
