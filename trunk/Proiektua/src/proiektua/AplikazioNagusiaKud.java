@@ -100,7 +100,7 @@ public class AplikazioNagusiaKud extends UnicastRemoteObject implements Aplikazi
 			String izena=turistaZer.get(i).getIzena();
 			String helb=turistaZer.get(i).getHelbidea();
 			String telf=turistaZer.get(i).getTelefonoa();
-			aplikazioDatuBase.sartuTurista(izena, helb, telf, i+"");
+			aplikazioDatuBase.sartuTurista(izena, helb, telf, i+1+"");
 		}
 	}
 
