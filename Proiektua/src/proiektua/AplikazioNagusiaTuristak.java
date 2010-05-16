@@ -255,18 +255,13 @@ public class AplikazioNagusiaTuristak extends JFrame{
 					//Erreserba eta Turistak datu basean sartu
 					try {
 						AplikazioNagusia.nlInt.sartuErreserba(zenb, ezaugarriId, agenteId, irteeraData);
-					} catch (RemoteException e2) {
-						e2.printStackTrace();
-					}
-					try {
 						AplikazioNagusia.nlInt.sartuTuristak();
 					} catch (RemoteException e1) {
 						e1.printStackTrace();
-						System.out.println("ERROREA. Turista sartzean arazoa");
+						System.out.println("ERROREA. Erreserba egitean.");
 					}
 					JOptionPane.showMessageDialog(null,"Erreserbak ondo egin dira.","Erreserbaren baieztapena",JOptionPane.PLAIN_MESSAGE);
 					hasieratuInterfazea();
-
 				}
 			});
 		}
@@ -304,8 +299,8 @@ public class AplikazioNagusiaTuristak extends JFrame{
 	private JButton getBtnAldatu() {
 		if (btnAldatu == null) {
 			btnAldatu = new JButton();
-			btnAldatu.setBounds(new Rectangle(88, 222, 94, 29));
-			btnAldatu.setText("Aldatu");
+			btnAldatu.setBounds(new Rectangle(67, 222, 129, 29));
+			btnAldatu.setText("Erreserba aldatu");
 			btnAldatu.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					unekoPosizioa=0;
