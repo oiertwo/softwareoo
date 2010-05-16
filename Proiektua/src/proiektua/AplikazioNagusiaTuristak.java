@@ -37,7 +37,6 @@ public class AplikazioNagusiaTuristak extends JFrame{
 	private JButton btnBidali = null;
 	private JButton btnEzeztatu = null;
 
-	//private Vector<Turista> turistaZer = new Vector();  //  @jve:decl-index=0:
 	private int unekoPosizioa;
 
 	private String zenb;

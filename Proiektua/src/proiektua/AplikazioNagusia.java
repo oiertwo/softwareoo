@@ -244,14 +244,13 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 					try{
 						int bidaiariKop = cmbPertsonaKop.getSelectedIndex()+1;
 						String data = cmbDatak.getSelectedItem().toString();
-						//System.out.println("DATUAK: AgenteId:" + agenteId + " IrteeraId:" + irteeraId + " Data:" + data + " BidaiariKop:" + bidaiariKop);
 						zenb = nlInt.getErreserbaBaieztapenZenbakia(cmbAgenteak, cmbEzaugarriak, data, bidaiariKop);
 						if(zenb!=null){
 							taErreserba.setText("Erreserba egin dezakezu.\nBaieztapen zenbakia: "+zenb+"\n*******************************");
 							baieztapenInterfazea();
 						}
 						else{
-							taErreserba.setText("Baieztapen zenbaki okerra!\n");
+							taErreserba.setText("Ez dago nahiko tokirik bidaia honentzat!\n");
 						}
 					}catch(Exception ex){
 						ex.printStackTrace();
@@ -281,7 +280,6 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 						if(nlInt.baieztapenZenbakiaKonprobatu(sartutakoZenb)){
 							//Baieztapen zenbaki zuzena. Agenteak sartzeko interfazea erakutsi:
 							turistakSartuInterfazea();
-							//taErreserba.setText(taErreserba.getText()+"\nBaieztapen zenbakia zuzena.\nErreserba egin daiteke.");
 						}
 						else{
 							taErreserba.setText(taErreserba.getText()+"\nBaieztapen zenbakia okerra da!\nEzin da erreserbarik egin.");
