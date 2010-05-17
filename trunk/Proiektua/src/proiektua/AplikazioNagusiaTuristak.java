@@ -230,7 +230,6 @@ public class AplikazioNagusiaTuristak extends JFrame{
 			btnTuristaAtzera.setText("<");
 			btnTuristaAtzera.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					//gehituTurista(unekoPosizioa);
 					unekoPosizioa--;
 					joanPosiziora(unekoPosizioa);
 				}
