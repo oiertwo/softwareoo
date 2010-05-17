@@ -81,6 +81,7 @@ public class AplikazioNagusia extends JFrame {
 			frameErreserba = new JFrame();
 			frameErreserba.setSize(new Dimension(875, 467));
 			frameErreserba.setTitle("Erreserba sistema");
+			frameErreserba.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/hegazkina.jpg")));
 			frameErreserba.setContentPane(getEdukiontziErreserba());
 		}
 		return frameErreserba;
@@ -366,7 +367,6 @@ public class AplikazioNagusia extends JFrame {
 	 */
 	private void initialize() {
 		this.setSize(860, 460);
-		this.setIconImage(Toolkit.getDefaultToolkit().getImage("src/img/hegazkina.jpg"));
 		this.setResizable(false);
 		this.setContentPane(getEdukiontziErreserba());
 		this.setTitle(" BIDAIA AGENTZIA");
