@@ -51,6 +51,10 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 
 	private JLabel labAukIr = null;
 
+	private JLabel labPK = null;
+
+	private JLabel labPlazaKop = null;
+
 	/**
 	 * This method initializes frameErreserba
 	 *
@@ -73,29 +77,35 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 	 */
 	private JPanel getEdukiontziErreserba() {
 		if (edukiontziErreserba == null) {
+			labPlazaKop = new JLabel();
+			labPlazaKop.setBounds(new Rectangle(356, 146, 31, 16));
+			labPlazaKop.setText("");
+			labPK = new JLabel();
+			labPK.setBounds(new Rectangle(263, 146, 94, 16));
+			labPK.setText("Plaza Kopurua:");
 			labAukIr = new JLabel();
-			labAukIr.setBounds(new Rectangle(467, 124, 133, 18));
+			labAukIr.setBounds(new Rectangle(474, 124, 133, 18));
 			labAukIr.setText("Aukeratutako irteera");
 			labAukeraIrteera = new JLabel();
-			labAukeraIrteera.setBounds(new Rectangle(398, 142, 284, 218));
+			labAukeraIrteera.setBounds(new Rectangle(405, 142, 284, 218));
 			labAukeraIrteera.setText("");
 			labEzaugarriak = new JLabel();
 			labEzaugarriak.setBounds(new Rectangle(13, 67, 141, 16));
 			labEzaugarriak.setText("Irteeraren ezaugarriak");
 			labErreserba = new JLabel();
-			labErreserba.setBounds(new Rectangle(495, 2, 66, 16));
+			labErreserba.setBounds(new Rectangle(502, 2, 66, 16));
 			labErreserba.setText("Erreserba");
 			labBaieztapenZenb = new JLabel();
 			labBaieztapenZenb.setBounds(new Rectangle(12, 331, 125, 16));
 			labBaieztapenZenb.setText("Baieztapen zenbakia");
 			labIrteeraData = new JLabel();
-			labIrteeraData.setBounds(new Rectangle(15, 143, 72, 16));
+			labIrteeraData.setBounds(new Rectangle(10, 144, 72, 16));
 			labIrteeraData.setText("Irteera data");
 			labEzaugarriak = new JLabel();
-			labEzaugarriak.setBounds(new Rectangle(13, 88, 136, 16));
+			labEzaugarriak.setBounds(new Rectangle(8, 89, 136, 16));
 			labEzaugarriak.setText("Irteeraren ezaugarriak");
 			labPertsonaKop = new JLabel();
-			labPertsonaKop.setBounds(new Rectangle(16, 198, 107, 16));
+			labPertsonaKop.setBounds(new Rectangle(11, 199, 107, 16));
 			labPertsonaKop.setText("Pertsona kopurua");
 			edukiontziErreserba = new JPanel();
 			edukiontziErreserba.setLayout(null);
@@ -115,6 +125,8 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 			edukiontziErreserba.add(getTaErreserba(), null);
 			edukiontziErreserba.add(labAukeraIrteera, null);
 			edukiontziErreserba.add(labAukIr, null);
+			edukiontziErreserba.add(labPK, null);
+			edukiontziErreserba.add(labPlazaKop, null);
 			edukiontziErreserba.add(labEzaugarriak, null);
 		}
 		return edukiontziErreserba;
@@ -129,7 +141,7 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 		if (labAgentea == null) {
 			labAgentea = new JLabel();
 			labAgentea.setText("Erreserba Agentea");
-			labAgentea.setBounds(new Rectangle(14, 28, 130, 15));
+			labAgentea.setBounds(new Rectangle(9, 29, 130, 15));
 		}
 		return labAgentea;
 	}
@@ -142,7 +154,7 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 	private JComboBox getCmbPertsonaKop() {
 		if (cmbPertsonaKop == null) {
 			cmbPertsonaKop = new JComboBox();
-			cmbPertsonaKop.setBounds(new Rectangle(170, 193, 53, 25));
+			cmbPertsonaKop.setBounds(new Rectangle(153, 194, 53, 25));
 			for(int i=1;i<=10;i++){
 				cmbPertsonaKop.addItem(i);
 			}
@@ -158,7 +170,7 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 	private JComboBox getCmbAgenteak() {
 		if (cmbAgenteak == null) {
 			cmbAgenteak = new JComboBox();
-			cmbAgenteak.setBounds(new Rectangle(169, 22, 154, 25));
+			cmbAgenteak.setBounds(new Rectangle(152, 23, 154, 25));
 			agenteakKargatu();
 			cmbAgenteak.addItemListener(new java.awt.event.ItemListener() {
 				public void itemStateChanged(java.awt.event.ItemEvent e) {
@@ -180,7 +192,7 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 	private JComboBox getCmbEzaugarriak() {
 		if (cmbEzaugarriak == null) {
 			cmbEzaugarriak = new JComboBox();
-			cmbEzaugarriak.setBounds(new Rectangle(168, 85, 155, 25));
+			cmbEzaugarriak.setBounds(new Rectangle(151, 86, 155, 25));
 			ezaugarriakKargatu();
 
 			cmbEzaugarriak.addItemListener(new java.awt.event.ItemListener() {
@@ -208,7 +220,22 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 	private JComboBox getCmbDatak() {
 		if (cmbDatak == null) {
 			cmbDatak = new JComboBox();
-			cmbDatak.setBounds(new Rectangle(169, 140, 112, 25));
+			cmbDatak.setBounds(new Rectangle(152, 141, 94, 25));
+			cmbDatak.addItemListener(new java.awt.event.ItemListener() {
+				public void itemStateChanged(java.awt.event.ItemEvent e) {
+					if(e.getStateChange() == ItemEvent.SELECTED){
+						try{
+							String agenteId = nlInt.lortuAukeratutakoAgenteId(cmbAgenteak);
+							String ezaugarriId = nlInt.lortuAukeratutakoEzaugarriId(cmbEzaugarriak);
+							String data=cmbDatak.getSelectedItem().toString();
+							int plazaKop = nlInt.getPlazaKop(agenteId, ezaugarriId, data);
+							labPlazaKop.setText(plazaKop+"");
+						}catch(RemoteException ex){
+							ex.printStackTrace();
+						}
+					}
+				}
+			});
 			datakKargatu();
 		}
 		return cmbDatak;
@@ -250,7 +277,7 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 							baieztapenInterfazea();
 						}
 						else{
-							taErreserba.setText("Ez dago nahiko tokirik bidaia honentzat!\n");
+							taErreserba.setText("Ez dago toki libre nahikorik!\n");
 						}
 					}catch(Exception ex){
 						ex.printStackTrace();
@@ -340,7 +367,7 @@ public class AplikazioNagusia extends JFrame { //extends Observable?
 	private JTextArea getTaErreserba() {
 		if (taErreserba == null) {
 			taErreserba = new JTextArea();
-			taErreserba.setBounds(new Rectangle(421, 20, 215, 102));
+			taErreserba.setBounds(new Rectangle(428, 20, 215, 102));
 			taErreserba.setEditable(false);
 		}
 		return taErreserba;
