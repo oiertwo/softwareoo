@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 public class Data implements Serializable {
 
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
 	private String data;
 	private static int plazakop;
 	private String agenteId;
@@ -14,7 +18,6 @@ public class Data implements Serializable {
 		agenteId=aId;
 		irteeraId=iId;
 		plazakop=pk;
-
 	}
 
 	public String getData() {

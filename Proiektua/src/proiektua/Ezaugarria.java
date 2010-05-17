@@ -3,7 +3,10 @@ package proiektua;
 import java.io.Serializable;
 
 public class Ezaugarria implements Serializable {
-
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
 	private String ezaugarri;
 	private String id;
 

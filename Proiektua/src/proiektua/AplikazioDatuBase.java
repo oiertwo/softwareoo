@@ -116,11 +116,7 @@ public class AplikazioDatuBase
             {
             System.out.println("Exception:  " + anException.getMessage());
         }
-        // Irteera
-        finally
-            {
-            return erreserbarenZenbakia;
-        }
+        return erreserbarenZenbakia;
     }
 
     private int lortuErreserbaZenb() {
@@ -198,8 +194,6 @@ public class AplikazioDatuBase
     * @param amount double
     */
     public void sartuTurista(String izena,String helbidea,String telefonoa,String turistaZenbakia){
-        // Erazagupenak
-        int count = 0;
         PreparedStatement insertSententzia = null;
         // Sarrera
         try
@@ -213,7 +207,7 @@ public class AplikazioDatuBase
             insertSententzia.setString(2, erreserbaZenb+"");
             insertSententzia.setString(1, turistaZenbakia);
             // Insert sententzia exekutatu
-            count = insertSententzia.executeUpdate();
+            insertSententzia.executeUpdate();
             // Insert sententzia amaitu
             insertSententzia.close();
         }
@@ -246,7 +240,7 @@ public class AplikazioDatuBase
      * @return Vector<Agentea>
      */
     public Vector<Agentea> getAgenteak(){
-    	Vector<Agentea> agenteZer = new Vector();
+    	Vector<Agentea> agenteZer = new Vector<Agentea>();
 
     	CallableStatement st;
     	ResultSet rs=null;

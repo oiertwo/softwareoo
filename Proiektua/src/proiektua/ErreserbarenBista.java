@@ -85,6 +85,7 @@ public class ErreserbarenBista implements Observer{
 		AplikazioNagusia.cmbPertsonaKop.setEnabled(true);
 		AplikazioNagusia.cmbDatak.setEnabled(true);
 		AplikazioNagusia.btnErreserbaBerria.setEnabled(true);
+		AplikazioNagusia.btnSartuErreserba.setEnabled(false);
 		AplikazioNagusia.taErreserba.setText("");
 		AplikazioNagusia.cmbPertsonaKop.setSelectedIndex(0);
 	}

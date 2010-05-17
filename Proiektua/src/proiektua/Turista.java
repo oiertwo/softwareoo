@@ -13,8 +13,10 @@ import java.io.Serializable;
  */
 public class Turista implements Serializable{
 
-    //private String turistaId;
-    //private String erreserbaId;
+    /**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
     private String izena;
     private String helbidea;
     private String telefonoa;
