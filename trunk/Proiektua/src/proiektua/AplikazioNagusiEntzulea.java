@@ -54,9 +54,4 @@ public class AplikazioNagusiEntzulea extends Observable{
 		setChanged();
 		notifyObservers(new String("ALDATU_ERRESERBA"));
 	}
-	void itxiTuristenInterfazea(){
-		setChanged();
-		notifyObservers(new String("ITXI_TURISTEN_INTERFAZEA"));
-	}
-
 }

@@ -3,21 +3,23 @@ package proiektua;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.sql.*;
-import java.util.Observable;
 import java.util.Vector;
 
 import javax.swing.JComboBox;
 
-//extends Observable???
 public class AplikazioNagusiaKud extends UnicastRemoteObject implements AplikazioNagusiaKudInterfazea{
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private static AplikazioDatuBase aplikazioDatuBase;
 
 	String zenb; //Baieztapen zenbakia gordetzeko aldagai globala
 	private Vector<Agentea> agenteZer = new Vector<Agentea>();
 	private Vector<Ezaugarria> ezaugarriZer = new Vector<Ezaugarria>();
 	private Vector<Data> dataZer = new Vector<Data>();
-	private Vector<Turista> turistaZer = new Vector();  //  @jve:decl-index=0:
+	private Vector<Turista> turistaZer = new Vector<Turista>();  //  @jve:decl-index=0:
 
 	public AplikazioNagusiaKud() throws RemoteException{
 		super();
@@ -126,7 +128,7 @@ public class AplikazioNagusiaKud extends UnicastRemoteObject implements Aplikazi
 
 	public Vector<String> kargatuEzaugarriak(JComboBox cmbAgenteak) throws RemoteException{
 		ezaugarriZer.removeAllElements();
-		Vector ezaugarriak=new Vector<String>();
+		Vector<String> ezaugarriak=new Vector<String>();
 		String agenteId = agenteZer.get((cmbAgenteak.getSelectedIndex())).getId();
 		try {
 			ezaugarriZer =  getEzaugarriak(agenteId);

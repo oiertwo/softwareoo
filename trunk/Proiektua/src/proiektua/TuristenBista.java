@@ -54,19 +54,13 @@ public class TuristenBista implements Observer {
 			hasieratuInterfazea();
 		}
 		else if(par.equals("EZEZTATU_ERRESERBA")){
-			Object[] aukerak = {"Bai","Ez"};
-			if(JOptionPane.showOptionDialog(null, "Erreserba ezeztatzera zoaz.\nZiur al zaude?", "Erreserbaren ezeztapena",JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,null, aukerak, aukerak[0])==0){
-				JOptionPane.showMessageDialog(null,"Erreserba ezeztatu da.","Erreserbaren ezeztapena",JOptionPane.PLAIN_MESSAGE);
-				hasieratuInterfazea();
-			}
+			JOptionPane.showMessageDialog(null,"Erreserba ezeztatu da.","Erreserbaren ezeztapena",JOptionPane.PLAIN_MESSAGE);
+			hasieratuInterfazea();
 		}
 		else if(par.equals("ALDATU_ERRESERBA")){
 			unekoPosizioa=0;
 			joanPosiziora(0);
 			hasieratuTuristenInterfazea();
-		}
-		else if(par.equals("ITXI_TURISTEN_INTERFAZEA")){
-			hasieratuInterfazea();
 		}
 	}
 
@@ -125,6 +119,9 @@ public class TuristenBista implements Observer {
 		}
 		unekoPosizioa=0;
 		pertsonaKop=0;
+		AplikazioNagusia.txtIzena.setText("");
+		AplikazioNagusia.txtHelbidea.setText("");
+		AplikazioNagusia.txtTelefonoa.setText("");
 	}
 
 	private void hasieratuTuristenInterfazea(){
