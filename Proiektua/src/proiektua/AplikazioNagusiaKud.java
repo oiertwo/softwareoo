@@ -87,7 +87,7 @@ public class AplikazioNagusiaKud extends UnicastRemoteObject implements Aplikazi
 		return z.equals(zenb);
 	}
 
-	private int getPlazaKop(String agenteId, String irteeraId, String data) throws RemoteException {
+	public int getPlazaKop(String agenteId, String irteeraId, String data) throws RemoteException {
 		return aplikazioDatuBase.getPlazaKop(agenteId,irteeraId,data);
 	}
 
