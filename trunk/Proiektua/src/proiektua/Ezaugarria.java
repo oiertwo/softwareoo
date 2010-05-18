@@ -14,21 +14,11 @@ public class Ezaugarria implements Serializable {
 		ezaugarri=eza;
 		this.id=ident;
 	}
-
 	public String getEzaugarri() {
 		return ezaugarri;
 	}
-
-	public void setEzaugarri(String ezaugarri) {
-		this.ezaugarri = ezaugarri;
-	}
-
 	public String getId() {
 		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
 	}
 
 }

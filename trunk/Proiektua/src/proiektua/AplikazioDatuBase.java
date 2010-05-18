@@ -21,7 +21,6 @@ public class AplikazioDatuBase
     /**
     * Datu basea hasieratzen
     */
-
     private AplikazioDatuBase()
     {
         try
@@ -57,31 +56,10 @@ public class AplikazioDatuBase
 
 
     /**
-    * Datu base itxi
-    */
-    public void finalize()
-    {
-        try
-            {
-            konexioa.close();
-        }
-        catch (SQLException anException)
-            {
-            while (anException != null)
-                {
-                System.out.println("SQL Exception:  " + anException.getMessage());
-                anException = anException.getNextException();
-            }
-        }
-        catch (Exception anException)
-            {
-            anException.printStackTrace();
-        }
-    }
-    /**
     * Eskuratu azken erreserbaren zenbakia eragiketak egiteko.
+    *
+	* @return void
     */
-
     public int getAzkenErreserbarenZenbakia()
     {
         // Erazagupenak
@@ -119,6 +97,11 @@ public class AplikazioDatuBase
         return erreserbarenZenbakia;
     }
 
+    /**
+     * Egingo den erreserba berriaren identifikatzailea sortuko duen metodoa
+     *
+ 	 * @return void
+     */
     private int lortuErreserbaZenb() {
     	int z = 0;
     	CallableStatement st;
@@ -138,9 +121,8 @@ public class AplikazioDatuBase
 	}
 	/**
     * Erreserbaren ezugarriak txertatzen datu-basean
-    * @return count int
-    * @param data java.util.Date
-    * @param amount double
+    *
+	* @return count int
     */
     public int sartuErreserba(
         String baieztapenZenbakia,
@@ -189,9 +171,8 @@ public class AplikazioDatuBase
     }
     /**
     * Turistaren datuak txertatzen datu-basean
-    * @return count int
-    * @param data java.util.Date
-    * @param amount double
+    *
+    *@return void
     */
     public void sartuTurista(String izena,String helbidea,String telefonoa,String turistaZenbakia){
         PreparedStatement insertSententzia = null;
@@ -329,9 +310,13 @@ public class AplikazioDatuBase
     	return plazaKop;
 	}
 
-    //Aukeratutako "agenteId" eta "irteeraId"-rako irteera datak lortu.
-    public Vector<Data> getDatak(String agenteId,String irteeraId){
-     	Vector<Data> dataZer = new Vector<Data>();
+    /**
+     * Aukeratutako "agenteId" eta "irteeraId"-rako irteera datak lortu.
+     *
+     * @return Vector<String>
+     */
+    public Vector<String> getDatak(String agenteId,String irteeraId){
+     	Vector<String> dataZer = new Vector<String>();
 
     	CallableStatement st;
     	ResultSet rs=null;
@@ -343,7 +328,7 @@ public class AplikazioDatuBase
 									  " ORDER BY Data");
 			rs = st.executeQuery();
 			while(rs.next()) {
-				Data d = new Data(rs.getDate(1).toString(),agenteId,irteeraId,rs.getInt(2));
+				String d = rs.getDate(1).toString();
 				dataZer.add(d);
 			}
 		}

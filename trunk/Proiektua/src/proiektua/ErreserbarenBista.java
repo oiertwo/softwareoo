@@ -12,6 +12,11 @@ public class ErreserbarenBista implements Observer{
 	private String zenb;
 	private int plazaKop;
 
+	/**
+	 * Erreserba egitearen hasierako pausuak kontrolatzen duen metodoa
+	 *
+	 * @return void
+	 */
 	public void update(Observable ob, Object par){
 		if(par.equals("HASI_INTERFAZE_NAGUSIA")){
 			hasieratuKontrolak();
@@ -63,11 +68,15 @@ public class ErreserbarenBista implements Observer{
 			AplikazioNagusia.btnEzeztatu.setEnabled(true);
 			AplikazioNagusia.labTuristaZenb.setText(1+"/"+AplikazioNagusia.cmbPertsonaKop.getSelectedItem());
 			AplikazioNagusia.txtIzena.requestFocus();
-			AplikazioNagusia.unekoPosizioa=0;
 		}
 	}
 
-	//FUNTZIO LAGUNGARRIAK:
+
+	/**
+	 * Interfazea hasieran bezala uzteko metodoa
+	 *
+	 * @return void
+	 */
 	private void hasieratuKontrolak(){
 		AplikazioNagusia.txtIzena.setEnabled(false);
 		AplikazioNagusia.txtHelbidea.setEnabled(false);
@@ -90,6 +99,11 @@ public class ErreserbarenBista implements Observer{
 		AplikazioNagusia.cmbPertsonaKop.setSelectedIndex(0);
 	}
 
+	/**
+	 * Agenteak kargatzen dituen metodoa
+	 *
+	 * @return void
+	 */
 	private void kargatuAgenteak(){
 		try {
 			Vector<String> agenteIzenak = AplikazioNagusia.nlInt.kargatuAgenteak();
@@ -102,6 +116,11 @@ public class ErreserbarenBista implements Observer{
 		}
 	}
 
+	/**
+	 * Irteeren ezaugarriak kargatzen dituen metodoa
+	 *
+	 * @return void
+	 */
 	private void kargatuEzaugarriak(){
 		try {
 			Vector<String> ezaugarriak = AplikazioNagusia.nlInt.kargatuEzaugarriak(AplikazioNagusia.cmbAgenteak);
@@ -115,6 +134,11 @@ public class ErreserbarenBista implements Observer{
 		}
 	}
 
+	/**
+	 * Irteeraren tokiko argazkia kargatzen duen metodoa
+	 *
+	 * @return void
+	 */
 	private void kargatuArgazkia(){
 		String auk=null;
 		try {
@@ -125,6 +149,11 @@ public class ErreserbarenBista implements Observer{
 		AplikazioNagusia.labAukeraIrteera.setIcon(new ImageIcon(getClass().getResource("/img/"+auk+".jpg")));
 	}
 
+	/**
+	 * Aukeratutako irteerako dauden datak kargatzen dituen metodoa
+	 *
+	 * @return void
+	 */
 	private void kargatuDatak(){
 		try {
 			Vector<String> datak = AplikazioNagusia.nlInt.kargatuDatak(AplikazioNagusia.cmbEzaugarriak, AplikazioNagusia.cmbAgenteak);
@@ -137,6 +166,11 @@ public class ErreserbarenBista implements Observer{
 		}
 	}
 
+	/**
+	 * Aukeratutako irteerarako, hartutako data jakinean dauden plaza kopuru librea lortzen duen metodoa
+	 *
+	 * @return void
+	 */
 	private void kargatuPlazaKop(){
 		String agenteId=null;
 		String  ezaugarriId=null;
@@ -150,9 +184,13 @@ public class ErreserbarenBista implements Observer{
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-		System.out.println(" plaza kop librea:"+plazaKop);
 	}
 
+	/**
+	 * Behin turisten datu guztiak sartuta, erreserba onartzeko/aldatzeko/ezeztatzeko aukera emango duen metodoa
+	 *
+	 * @return void
+	 */
 	private void baieztapenInterfazea(){
 		//Bidaiaren erreserbari buruzko interfazea ezkutatu:
 		AplikazioNagusia.cmbAgenteak.setEnabled(false);
