@@ -23,6 +23,7 @@ import javax.swing.JButton;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import java.awt.Font;
+import javax.swing.JScrollPane;
 
 public class AplikazioNagusia extends JFrame {
 	/**
@@ -70,6 +71,7 @@ public class AplikazioNagusia extends JFrame {
 	private JLabel labIzena = null;
 	private JLabel labHelbidea = null;
 	private JLabel labTelefonoa = null;
+	private JScrollPane scroll = null;
 
 	/**
 	 * This method initializes frameErreserba
@@ -169,6 +171,7 @@ public class AplikazioNagusia extends JFrame {
 			edukiontziErreserba.add(getTxtHelbidea(), null);
 			edukiontziErreserba.add(getTxtTelefonoa(), null);
 			edukiontziErreserba.add(labTuristaZenb, null);
+			edukiontziErreserba.add(getScroll(), null);
 			edukiontziErreserba.add(labEzaugarriak, null);
 		}
 		return edukiontziErreserba;
@@ -567,6 +570,19 @@ public class AplikazioNagusia extends JFrame {
 			txtTelefonoa.setBounds(new Rectangle(244, 375, 83, 20));
 		}
 		return txtTelefonoa;
+	}
+
+	/**
+	 * This method initializes scroll
+	 *
+	 * @return javax.swing.JScrollPane
+	 */
+	private JScrollPane getScroll() {
+		if (scroll == null) {
+			scroll = new JScrollPane(taErreserba);
+			scroll.setBounds(new Rectangle(342, 23, 219, 256));
+		}
+		return scroll;
 	}
 
 	/**
