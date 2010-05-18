@@ -35,6 +35,7 @@ public class TuristenBista implements Observer {
 				gehituTurista(unekoPosizioa);
 				unekoPosizioa++;
 				joanPosiziora(unekoPosizioa);
+				AplikazioNagusia.txtIzena.requestFocus();
 			}
 		}
 		else if(par.equals("AURREKO_TURISTA")){
