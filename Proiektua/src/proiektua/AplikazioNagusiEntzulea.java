@@ -3,7 +3,6 @@ package proiektua;
 import java.util.*;
 
 public class AplikazioNagusiEntzulea extends Observable{
-	//MENU NAGUSIKOAK:
 	void hasiInterfazeNagusia(){
 		setChanged();
 		notifyObservers(new String("HASI_INTERFAZE_NAGUSIA"));

@@ -24,6 +24,7 @@ import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import java.awt.Font;
 import javax.swing.JScrollPane;
+import java.awt.Point;
 
 public class AplikazioNagusia extends JFrame {
 	/**
@@ -31,11 +32,7 @@ public class AplikazioNagusia extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private static AplikazioNagusiEntzulea entzulea = new AplikazioNagusiEntzulea();  //  @jve:decl-index=0:
-	TuristenBista turObserver;
-	ErreserbarenBista erresObserver;  //  @jve:decl-index=0:
 	public static AplikazioNagusiaKudInterfazea nlInt;
-	public static int unekoPosizioa;
-	//private String zenb;
 
 	private JFrame frameErreserba = null;  //  @jve:decl-index=0:visual-constraint="64,420"
 	private JPanel edukiontziErreserba = null;
@@ -43,7 +40,6 @@ public class AplikazioNagusia extends JFrame {
 	private JLabel labPertsonaKop = null;
 	private JLabel labIrteeraData = null;
 	private JLabel labBaieztapenZenb = null;
-
 	public static JTextField txtBaieztapenZenb = null;
 	public static JComboBox cmbPertsonaKop = null;
 	public static JComboBox cmbAgenteak = null;
@@ -64,7 +60,6 @@ public class AplikazioNagusia extends JFrame {
 	public static JLabel labTuristaZenb = null;
 	public static JLabel labAukeraIrteera = null;
 	public static JLabel labPlazaKop = null;
-
 	private JLabel labEzaugarriak = null;
 	private JLabel labAukIr = null;
 	private JLabel labPK = null;
@@ -72,6 +67,9 @@ public class AplikazioNagusia extends JFrame {
 	private JLabel labHelbidea = null;
 	private JLabel labTelefonoa = null;
 	private JScrollPane scroll = null;
+	private TuristenBista turObserver;
+	private ErreserbarenBista erresObserver;
+
 
 	/**
 	 * This method initializes frameErreserba
@@ -82,8 +80,6 @@ public class AplikazioNagusia extends JFrame {
 		if (frameErreserba == null) {
 			frameErreserba = new JFrame();
 			frameErreserba.setSize(new Dimension(875, 467));
-			frameErreserba.setTitle("Erreserba sistema");
-			frameErreserba.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/hegazkina.jpg")));
 			frameErreserba.setContentPane(getEdukiontziErreserba());
 		}
 		return frameErreserba;
@@ -116,11 +112,12 @@ public class AplikazioNagusia extends JFrame {
 			labPK.setBounds(new Rectangle(40, 170, 94, 16));
 			labPK.setText("Plaza Kopurua:");
 			labAukIr = new JLabel();
-			labAukIr.setBounds(new Rectangle(643, 3, 133, 18));
-			labAukIr.setText("Aukeratutako irteera");
+			labAukIr.setBounds(new Rectangle(611, 5, 188, 18));
+			labAukIr.setText("Aukeratutako tokiaren argazkia");
 			labAukeraIrteera = new JLabel();
-			labAukeraIrteera.setBounds(new Rectangle(571, 20, 284, 242));
 			labAukeraIrteera.setText("");
+			labAukeraIrteera.setSize(new Dimension(260, 230));
+			labAukeraIrteera.setLocation(new Point(571, 25));
 			labEzaugarriak = new JLabel();
 			labEzaugarriak.setBounds(new Rectangle(13, 67, 141, 16));
 			labEzaugarriak.setText("Irteeraren ezaugarriak");
@@ -216,7 +213,6 @@ public class AplikazioNagusia extends JFrame {
 		if (cmbAgenteak == null) {
 			cmbAgenteak = new JComboBox();
 			cmbAgenteak.setBounds(new Rectangle(152, 20, 154, 25));
-			agenteakKargatu();
 			cmbAgenteak.addItemListener(new java.awt.event.ItemListener() {
 				public void itemStateChanged(java.awt.event.ItemEvent e) {
 					if(e.getStateChange() == ItemEvent.SELECTED){
@@ -237,7 +233,6 @@ public class AplikazioNagusia extends JFrame {
 		if (cmbEzaugarriak == null) {
 			cmbEzaugarriak = new JComboBox();
 			cmbEzaugarriak.setBounds(new Rectangle(152, 58, 155, 25));
-			ezaugarriakKargatu();
 
 			cmbEzaugarriak.addItemListener(new java.awt.event.ItemListener() {
 				public void itemStateChanged(java.awt.event.ItemEvent e) {
@@ -266,7 +261,6 @@ public class AplikazioNagusia extends JFrame {
 					}
 				}
 			});
-			datakKargatu();
 		}
 		return cmbDatak;
 	}
@@ -319,7 +313,6 @@ public class AplikazioNagusia extends JFrame {
 			btnSartuErreserba.setText(" SARTU");
 			btnSartuErreserba.setCursor(new Cursor(Cursor.HAND_CURSOR));
 			btnSartuErreserba.setIcon(new ImageIcon(getClass().getResource("/img/sartu.gif")));
-			//btnSartuErreserba.setEnabled(false);
 			btnSartuErreserba.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					//Erabiltzaileak sartutako baieztapen zenbakia zuzena dela baieztatu:
@@ -372,11 +365,10 @@ public class AplikazioNagusia extends JFrame {
 		this.setSize(860, 460);
 		this.setResizable(false);
 		this.setContentPane(getEdukiontziErreserba());
-		this.setTitle(" BIDAIA AGENTZIA");
-
+		this.setTitle("BIDAIEN ERRESERBA SISTEMA");
+		this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/hegazkina.jpg")));
 		erresObserver = new ErreserbarenBista();
 		entzulea.addObserver(erresObserver);
-
 		entzulea.hasiInterfazeNagusia();
 
 		this.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -400,8 +392,9 @@ public class AplikazioNagusia extends JFrame {
 	private JTextArea getTaErreserba() {
 		if (taErreserba == null) {
 			taErreserba = new JTextArea();
-			taErreserba.setBounds(new Rectangle(346, 23, 215, 242));
 			taErreserba.setEditable(false);
+			taErreserba.setLocation(new Point(340, 25));
+			taErreserba.setSize(new Dimension(220, 230));
 			taErreserba.setLineWrap(true);
 		}
 		return taErreserba;
@@ -604,43 +597,5 @@ public class AplikazioNagusia extends JFrame {
 				thisClass.setVisible(true);
 			}
 		});	}
-
-	private void agenteakKargatu(){
-		try {
-			Vector<String> agenteIzenak = nlInt.kargatuAgenteak();
-			cmbAgenteak.removeAllItems();
-			for(int i=0;i<agenteIzenak.size();i++){
-				cmbAgenteak.addItem(agenteIzenak.get(i));
-			}
-		}catch (RemoteException e1) {
-			e1.printStackTrace();
-		}
-	}
-
-	private void ezaugarriakKargatu(){
-		try {
-			Vector<String> ezaugarriak = nlInt.kargatuEzaugarriak(cmbAgenteak);
-			cmbEzaugarriak.removeAllItems();
-			for(int i=0;i<ezaugarriak.size();i++){
-				cmbEzaugarriak.addItem(ezaugarriak.get(i));
-			}
-			String auk = nlInt.lortuAukeratutakoEzaugarriId(cmbEzaugarriak);
-			labAukeraIrteera.setIcon(new ImageIcon(getClass().getResource("/img/"+auk+".jpg")));
-		}catch (RemoteException e1) {
-			e1.printStackTrace();
-		}
-	}
-
-	private void datakKargatu(){
-		try {
-			Vector<String> datak = nlInt.kargatuDatak(cmbEzaugarriak, cmbAgenteak);
-			cmbDatak.removeAllItems();
-			for(int i=0;i<datak.size();i++){
-				cmbDatak.addItem(datak.get(i));
-			}
-		}catch (RemoteException e1) {
-			e1.printStackTrace();
-		}
-	}
 }
 

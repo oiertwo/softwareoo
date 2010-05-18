@@ -30,26 +30,12 @@ public class Turista implements Serializable{
     public String getHelbidea() {
         return helbidea;
     }
-
-    public void setHelbidea(String helbidea) {
-        this.helbidea = helbidea;
-    }
-
     public String getIzena() {
         return izena;
-    }
-
-    public void setIzena(String izena) {
-        this.izena = izena;
     }
 
     public String getTelefonoa() {
         return telefonoa;
     }
-
-    public void setTelefonoa(String telefonoa) {
-        this.telefonoa = telefonoa;
-    }
-
 
 }

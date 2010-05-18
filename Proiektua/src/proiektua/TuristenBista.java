@@ -14,6 +14,9 @@ public class TuristenBista implements Observer {
 	private String data;
 	private String zenb;
 
+    /**
+     * Eraikitzailea, aurretik aukeratu diren datu garrantzitsuak gordeko dira.
+     */
 	public TuristenBista(String agId, String ezId, String d, String z, int kop){
 		agenteId=agId;
 		ezaugarriId=ezId;
@@ -65,7 +68,10 @@ public class TuristenBista implements Observer {
 		}
 	}
 
-	//FUNTZIO LAGUNGARRIAK:
+    /**
+     * Turista berria zerrendako posizio jakin batean gordeko duen metodoa
+     * @return void
+     */
 	private void gehituTurista(int pos){
 		try {
 			AplikazioNagusia.nlInt.gehituTurista(AplikazioNagusia.txtIzena.getText(),AplikazioNagusia.txtHelbidea.getText(),AplikazioNagusia.txtTelefonoa.getText(),pos);
@@ -79,6 +85,10 @@ public class TuristenBista implements Observer {
 				"\nTelefonoa: " + AplikazioNagusia.txtTelefonoa.getText()+"\n");
 	}
 
+    /**
+     * Turisten zerrendako posizio jakin baten datuak lortzeko metodoa.
+     * @return void
+     */
 	private void joanPosiziora(int pos){
 		Turista t=null;
 		AplikazioNagusia.labTuristaZenb.setText((pos+1)+"/"+pertsonaKop);
@@ -100,6 +110,10 @@ public class TuristenBista implements Observer {
 		else AplikazioNagusia.btnTuristaAtzera.setEnabled(true);
 	}
 
+    /**
+     * Uneko erreserba gordetzeko, aldatzeko edo ezabatzeko aukera ematen duen metodoa
+     * @return void
+     */
 	private void bidaliErreserbaInterfazea(){
 		AplikazioNagusia.btnTuristaAtzera.setEnabled(false);
 		AplikazioNagusia.btnSartuTurista.setEnabled(false);
@@ -112,6 +126,10 @@ public class TuristenBista implements Observer {
 		AplikazioNagusia.btnAldatu.setEnabled(true);
 	}
 
+    /**
+     * Turisten datuak sartzeko erabiltzen den interfazea hasieratzen duen metodoa
+     * @return void
+     */
 	private void hasieratuInterfazea(){
 		try {
 			AplikazioNagusia.nlInt.ezabatuTuristak();
@@ -125,6 +143,10 @@ public class TuristenBista implements Observer {
 		AplikazioNagusia.txtTelefonoa.setText("");
 	}
 
+    /**
+     * Turisten datuak sartzera goazeneko interfazearen egoera erakusten duen metodoa
+     * @return void
+     */
 	private void hasieratuTuristenInterfazea(){
 		AplikazioNagusia.txtIzena.setEnabled(true);
 		AplikazioNagusia.txtHelbidea.setEnabled(true);
@@ -137,8 +159,5 @@ public class TuristenBista implements Observer {
 		AplikazioNagusia.btnEzeztatu.setEnabled(false);
 		AplikazioNagusia.btnAldatu.setEnabled(false);
 		AplikazioNagusia.taErreserba.setText("");
-
-		System.out.println("DATAK: agenteId="+agenteId+" ezaugarriId"+ezaugarriId+" data:"+data+
-				" zenbakia="+zenb+ "pertsonaKop="+pertsonaKop);
 	}
 }

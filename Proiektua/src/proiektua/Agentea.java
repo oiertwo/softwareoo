@@ -21,7 +21,4 @@ public class Agentea implements Serializable{
 	public String getIzena(){
 		return this.agenteIzena;
 	}
-	public void setIzena(String izena){
-		this.agenteIzena = izena;
-	}
 }
