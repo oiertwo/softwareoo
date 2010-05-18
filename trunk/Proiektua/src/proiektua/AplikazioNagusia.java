@@ -446,8 +446,11 @@ public class AplikazioNagusia extends JFrame {
 					if(txtIzena.getText().equals("") || txtHelbidea.getText().equals("") || txtTelefonoa.getText().equals("")){
 						JOptionPane.showMessageDialog(null,"Turistari buruzko datu guztiak bete behar dira.","Turista sartu",JOptionPane.WARNING_MESSAGE);
 					}
-					else{
+					try{
+					    Integer.parseInt(txtTelefonoa.getText().toString());
 						entzulea.hurrengoTuristaraJoan();
+					}catch(NumberFormatException ex){
+						JOptionPane.showMessageDialog(null,"Kontuz! Turistaren telefonoak zenbakiak soilik izan ditzake.","Turista sartu",JOptionPane.WARNING_MESSAGE);
 					}
 				}
 			});
