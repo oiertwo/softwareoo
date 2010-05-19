@@ -498,6 +498,7 @@ public class AplikazioNagusia extends JFrame {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					entzulea.bidaliErreserba();
 					entzulea.hasiInterfazeNagusia();
+					entzulea.deleteObserver(turObserver);
 				}
 			});
 		}
