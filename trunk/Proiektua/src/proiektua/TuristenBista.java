@@ -24,6 +24,7 @@ public class TuristenBista implements Observer {
 		pertsonaKop=kop;
 		unekoPosizioa=0;
 		zenb=z;
+
 	}
 
 	public void update(Observable ob, Object par) {
@@ -120,7 +121,7 @@ public class TuristenBista implements Observer {
 		AplikazioNagusia.txtIzena.setEnabled(false);
 		AplikazioNagusia.txtHelbidea.setEnabled(false);
 		AplikazioNagusia.txtTelefonoa.setEnabled(false);
-		AplikazioNagusia.labTuristaZenb.setVisible(false);
+		AplikazioNagusia.labTuristaZenb.setText("");
 		AplikazioNagusia.btnBidali.setEnabled(true);
 		AplikazioNagusia.btnEzeztatu.setEnabled(true);
 		AplikazioNagusia.btnAldatu.setEnabled(true);
